@@ -1,0 +1,19 @@
+# In ~/.zshrc :
+# 
+# if [ -f ~/Workspace/TFG/config/zsh/zshrc ]; then
+#     source ~/Workspace/TFG/config/zsh/zshrc
+# else
+#     echo "Warning: ~/Workspace/TFG/config/zsh/zshrc not found."
+# fi
+
+# Config
+MY_TFG_WORKSPACE="$HOME/Workspace/TFG"
+
+# Aliases
+
+# Git repo
+alias tfg_gitcd='cd $MY_TFG_WORKSPACE'
+
+# Make
+alias tfg_make='make -C $MY_TFG_WORKSPACE -f makefile'
+alias tfg_clean='make clean -C $MY_TFG_WORKSPACE -f makefile'

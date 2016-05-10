@@ -1,0 +1,25 @@
+"*":
+  "build-make": {}
+  core:
+    themes: [
+      "atom-dark-ui"
+      "monokai"
+    ]
+  editor:
+    fontSize: 12
+    invisibles: {}
+    showIndentGuide: true
+    softWrap: true
+  "exception-reporting":
+    userId: "09b626f7-4ace-833c-e05c-b3a2b95511f1"
+  latex: {}
+  "latex-plus": {}
+  minimap: {}
+  "terminal-plus":
+    core: {}
+    style: {}
+  welcome:
+    showOnStartup: false
+  whitespace:
+    ensureSingleTrailingNewline: false
+    removeTrailingWhitespace: false
