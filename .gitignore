@@ -9,3 +9,5 @@
 *.aux
 *.blg
 *.bbl
+*.log
+*.pdf

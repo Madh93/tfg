@@ -12,15 +12,18 @@ Trabajo de Fin de Grado
 ##### Arch
 
     yaourt -S atom-editor-bin
-    apm install language-latex pdf-view script
     pacman -S texlive-most texlive-lang
 
 ##### Ubuntu
 
     sudo add-apt-repository ppa:webupd8team/atom
     sudo apt-get update && sudo apt-get install atom
-    apm install language-latex pdf-view script
     sudo apt-get install texlive-full
+
+##### Opcional
+
+    apm install language-latex pdf-view script
+    gem install guard guard-shell
 
 ### Código fuente
 
