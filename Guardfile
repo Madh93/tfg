@@ -8,7 +8,7 @@ Dir.mkdir('log') if !File.exists?('log')
 guard :shell do
   watch(%r{(.+)\.tex}) do |m|
     `echo #{m[0]} has changed at #{Time.now} >> log/guard.log`
-    `make clean all > /dev/null 2>&1`
+    `make clean all > /dev/null 2>&1 0<&-`
     if File.exists? "memtfg.ps"
       n "Built memtfg.pdf correctly", "Latex", :success
     else

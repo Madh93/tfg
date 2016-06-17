@@ -15,5 +15,5 @@ MY_TFG_WORKSPACE="$HOME/Workspace/TFG"
 alias tfg_gitcd='cd $MY_TFG_WORKSPACE'
 
 # Make
-alias tfg_make='make -C $MY_TFG_WORKSPACE -f makefile'
+alias tfg_make='make clean all -C $MY_TFG_WORKSPACE -f makefile'
 alias tfg_clean='make clean -C $MY_TFG_WORKSPACE -f makefile'
