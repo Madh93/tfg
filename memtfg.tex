@@ -10,6 +10,7 @@
 \usepackage{algorithmic}
 \usepackage{multirow}
 \usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+\usepackage[usenames]{xcolor}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newcommand{\SONY}{{\sc Sony}}
@@ -223,10 +224,15 @@ bla, bla, bla
 bla, bla, bla
 
 \bigskip
+Las cámaras son uno de los sensores que pueden dar una información mas
+rica del entorno para un robot. En este proyecto se plantea la utilización de
+cámaras y de sistemas estereoscópicos de dos cámaras para la detección de
+obstáculos y su posterior esquiva.
+
+\bigskip
 La competencia [E6], que figura en la guía docente, indica que en la memoria del trabajo se ha de incluir:
 antecedentes, problemática o estado del arte, objetivos, fases y desarrollo del proyecto,
 conclusiones, y líneas futuras.
-
 
 \bigskip
 Se ha incluido el apartado de 'Licencia' con todas las posibles licencias abiertas (Creative Commons).
@@ -285,7 +291,7 @@ Keyword1, Keyword2, Keyword3, ...
 % No funciona bien \markboth sin "twoside" en \documentclass, pero al
 % ponerlo se dan un montÃ³n de errores de underfull \vbox, con lo que no se
 % ha puesto.
-\markboth{Nombre del alumno}{Título del proyecto}
+\markboth{Miguel Ángel Delgado Hernández}{Visión artificial aplicada a la robótica}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Numeracion en romanos
@@ -322,7 +328,7 @@ Keyword1, Keyword2, Keyword3, ...
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\chapter{Título del Capítulo Dos}
+\chapter{Conceptos}
 \label{chapter:dos}
 
 \input{chapters/cap2.tex}
@@ -331,14 +337,14 @@ Keyword1, Keyword2, Keyword3, ...
 \newpage{\pagestyle{empty}}
 \thispagestyle{empty}
 
-\chapter{Título del Capítulo Tres}
+\chapter{Recursos y herramientas}
 \label{chapter:tres}
 
 \input{chapters/cap3.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\chapter{Título del Capítulo Cuatro}
+\chapter{Desarrollo}
 \label{chapter:cuatro}
 
 \input{chapters/cap4.tex}
