@@ -1,0 +1,15 @@
+# ~/.tmuxinator/tfg.yml
+
+name: tfg
+root: ~/Workspace/TFG
+
+windows:
+    - editor:
+        layout: 8f12,225x57,0,0{171x57,0,0[171x41,0,0,5,171x15,0,42{85x15,0,42,9,85x15,86,42,10}],53x57,172,0[53x28,172,0,6,53x19,172,29,7,53x8,172,49,8]}
+        panes:
+            - #empty
+            - watch -n 1 -d sensors
+            - htop
+            - irb
+            - guard
+            - tty-clock -s

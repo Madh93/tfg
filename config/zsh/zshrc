@@ -11,6 +11,9 @@ MY_TFG_WORKSPACE="$HOME/Workspace/TFG"
 
 # Aliases
 
+# Tmuxinator workspace
+alias tfg_start='tmuxinator start tfg'
+
 # Git repo
 alias tfg_gitcd='cd $MY_TFG_WORKSPACE'
 
