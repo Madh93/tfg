@@ -1,0 +1,20 @@
+" Wrap gitcommit file types at the appropriate length
+filetype plugin indent on
+" show existing tab with 2 spaces width
+set tabstop=2
+" when indenting with '>', use 2 spaces width
+set shiftwidth=2
+" number of clumns for a tab
+set softtabstop=2
+" expand tabs to spaces
+set expandtab
+" auto ident
+set ai
+" higlights search
+set hlsearch
+" line numbers
+set number
+" max lenght line
+set colorcolumn=80
+" Colors
+syntax on
