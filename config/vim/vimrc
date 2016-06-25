@@ -16,5 +16,10 @@ set hlsearch
 set number
 " max lenght line
 set colorcolumn=80
+" format lenght line
+highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+match OverLength /\%81v.\+/
+" auto newline when pass lenght line
+set tw=80
 " Colors
 syntax on
