@@ -1,5 +1,6 @@
 # TFG
 
+# Latex
 *.toc
 *.ps
 *.log
@@ -11,5 +12,10 @@
 *.bbl
 *.log
 *.pdf
+*.out
+
+# Workspace
 resources/
+
+# Vim
 *.swp
