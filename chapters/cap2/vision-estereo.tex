@@ -14,7 +14,7 @@ objeto en imágenes bidimensionales al ser observado desde distintos ángulo por
 dos o más cámaras separadas a una cierta distancia.
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\subsection{Calibración}
+% \subsection{Calibración}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \subsection{Adquisición}
@@ -25,14 +25,14 @@ ligeramente. De esta forma, las imágenes obtenidas, también tendrán un peque�
 desplazamiento entre sí.
 
 De manera más formal, se obtiene que para cada imagen capturada por las
-cámaras, un objeto está en puntos diferentes del plano. Esta triangulazión
+cámaras, un objeto está en puntos diferentes del plano. Esta triangulación
 entre el punto P y Q y el origen de referencia, provocan una sensación de
 profundidad. Mediante el sistema tradicional de una sola cámara, este punto
 estaría en las mismas coordenadas.
 
 \begin{figure}[!th]
   \begin{center}
-    \includegraphics[width=0.7\textwidth]{images/cap2/VisionEstereo.eps}
+    \includegraphics[width=0.5\textwidth]{images/cap2/VisionEstereo.eps}
     \caption{Diferencias entre una y dos cámaras}
     \label{fig:VisionEstereo}
   \end{center}
@@ -51,14 +51,14 @@ dos métodos principales:
 
 \begin{itemize}
   \item \textbf{Visión paralela:} las cámaras están paralelas entre sí y están
-  separadas por una línea horizonal (línea base). El objetivo que visualiza
+  separadas por una línea horizontal (línea base). El objetivo que visualiza
   cada cámara es perpendicular respecto a la línea base, mientras que las
   líneas de correspondencia que unen los puntos de una imagen respecto a la
   otra son horizontales.
 
   \begin{minipage}{\linewidth}
       \centering
-      \includegraphics[width=0.7\textwidth]{images/cap2/VisionParalela.eps}
+      \includegraphics[width=0.6\textwidth]{images/cap2/VisionParalela.eps}
       \captionof{figure}{Visión paralela}
       \label{fig:VisionParalela}
   \end{minipage}
@@ -71,7 +71,7 @@ dos métodos principales:
 
   \begin{minipage}{\linewidth}
       \centering
-      \includegraphics[width=0.7\textwidth]{images/cap2/VisionCruzada.eps}
+      \includegraphics[width=0.6\textwidth]{images/cap2/VisionCruzada.eps}
       \captionof{figure}{Visión cruzada}
       \label{fig:VisionCruzada}
   \end{minipage}
@@ -79,7 +79,7 @@ dos métodos principales:
 
 % http://vfxio.com/PDFs/Parallel_vs_Converged.pdf
 La visión cruzada tiene la desventaja de distorsionar las imágenes capturadas.
-En la figura 2.4 se puede observar este efecto al fotografíar un muro de
+En la figura 2.4 se puede observar este efecto al fotografiar un muro de
 ladrillos. Sin embargo, dependiendo del tipo de escena que se capture, esta
 distorsión puede suponer un problema o no.
 
@@ -96,7 +96,7 @@ también cuenta con otra serie de problemas. A pesar de ello, la visión paralel
 suele ser la más utilizada para la visión estéreo.
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\subsection{Rectificación}
+% \subsection{Rectificación}
 % https://en.wikipedia.org/wiki/Image_rectification
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -105,23 +105,33 @@ suele ser la más utilizada para la visión estéreo.
 % http://stackoverflow.com/questions/17607312/difference-between-disparity-map-and-disparity-image-in-stereo-matching
 % http://iie.fing.edu.uy/publicaciones/2005/Lec05a/Lec05a.pdf
 La disparidad de dos imágenes establece la correspondencia entre los píxeles o
-características que existen entre ambas para obtener la profundidad de la
-escena.
+características que existen entre ambas en el eje x para obtener la profundidad
+de la escena. Con esto se consigue estimar la profundidad de cada uno de los
+puntos en la escena.
 
-El objetivo final es poder construir una \textbf{imagen o mapa de disparidad}.
+El objetivo final es poder construir una \textbf{imagen o mapa de disparidad},
+una imagen que representa la disparidad entre las dos cámaras. Habitualmente
+el mapa de disparidad se representa como una imagen monocroma donde los objetos
+con mayor disparidad (más cercanos) son representados con un tono más claro y
+los objetos con menor disparidad (más lejanos) son representados con un tono más
+oscuro. Aunque no es extraño encontrar una imagen térmica en vez de monocroma.
+
+Con el único requisito de que las imágenes estén rectificadas, el algoritmo para
+calcular la disparidad consiste de forma general en obtener la profundidad para
+todos los píxeles de las imágenes estéreo. De esta forma, para todos los puntos
+de cada imagen se busca la pareja de puntos correspondientes que representan la
+proyección del mismo punto del espacio.
+
+El mapa de disparidad es uno de los elementos básicos para la reconstrucción
+tridimensional de los objetos de una escenas a partir de varias capturas.
 
 \begin{figure}[!th]
   \begin{center}
-    \includegraphics[width=0.7\textwidth]{images/cap2/MapaDisparidad.eps}
+    \includegraphics[width=0.6\textwidth]{images/cap2/MapaDisparidad.eps}
     \caption{Mapa de disparidad a partir de imágenes en estéreo}
     \label{fig:MapaDisparidad}
   \end{center}
 \end{figure}
-
-
-
-
-
 
 
 % Disparidad....
@@ -131,31 +141,6 @@ El objetivo final es poder construir una \textbf{imagen o mapa de disparidad}.
 
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\subsection{Reconstrucción 3D}
-
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\subsection{Aplicaciones}
-% https://www.ptgrey.com/tan/10570
-La visión artificial resulta de gran utilidad en diferentes áreas de
-aplicación, tanto en acciones repetitivas como peligrosas:
-
-
-\begin{itemize}
-  \item \textbf{Inspección y ensamblaje industrial:} el proyecto "Randon Bin
-  Picking" (RBP) hace uso de visión estéreo para la búsqueda de piezas entre
-  objetos de todo tipo para su rápida recuperación.
-  % http://www.worldscientific.com/doi/suppl/10.1142/8766/suppl_file/8766_chap01.pdf
-  \item \textbf{Apoyo en el diagnóstico médico:} en las últimas décadas la
-  visión artificial se ha hecho un importante en la medicina para detectar,
-  analizar y reconstruir la información obtenida.
-  % http://www.ri.cmu.edu/pub_files/pub4/matthies_larry_2007_1/matthies_larry_2007_1.pdf
-  \item \textbf{Exploración espacial:} en el proyecto de exploración Mars Rover
-  (Mars Exploration Rover Mission) tiene como objetivo explorar la superficie
-  de Marte en busca de rocas u otros elementos que prueben la existencia de
-  agua.
-  \item \textbf{Seguimiento (Tracking):} se hace uso en innumerables
-  situaciones de carácter estadístico como contar el número o de en áreas de
-  vigilancia y seguridad monitorizando trayectorias.
-\end{itemize}
+% \subsection{Reconstrucción 3D}
 
 %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
