@@ -6,6 +6,178 @@
 % \section{Preparación del entorno}
 % \label{4:sec:1}
 
-bla bla bla
+Como se pudo observar en el capítulo ~\ref{chapter:recursos}, el desarrollo de
+este trabajo se realiza en base a ROS, concretamente la versión 'Indigo'. Es
+necesario instalar y configurar un directorio de trabajo para ROS donde estará
+alojado el paquete con el código fuente del proyecto.
+
+El sistema operativo que se ha utilizado ha sido Ubuntu 14.04 LTS (64-bit), una
+distribución GNU/Linux muy sencilla de utilizar para la que se distribuyen los
+paquetes que conforman ROS. Cabe mencionar, que todos los pasos que se
+describen a continuación son perfectamente válidos para versiones más recientes
+de Ubuntu o distribuciones derivadas, solo es necesario modificar algunos
+detalles como la versión o el nombre de la distribución. 
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\subsection{Instalación y configuración de ROS}
+% http://wiki.ros.org/es/hydro/Installation/Ubuntu
+% http://wiki.ros.org/ROS/Tutorials
+
+%--------------------------------------
+\paragraph{Instalar ROS} \hspace{0pt} \\
+ROS no se encuentra en los paquetes oficiales de Ubuntu, es necesario añadir un
+repositorio externo, el oficial de ROS. Para ello se introduce lo siguiente en
+una terminal:
+\\
+\begin{lstlisting}
+  $ sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+\end{lstlisting}
+
+Se añaden las claves del repositorio externo:
+\\
+\begin{lstlisting}
+  $ sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net --recv-key 0xB01FA116
+\end{lstlisting}
+
+Con esto solamente es necesario actualizar la base de datos de los paquetes
+disponibles en los diferentes repositorios:
+\\
+\begin{lstlisting}
+  $ sudo apt-get update
+\end{lstlisting}
+
+El gestor de paquetes ya puede encontrar los paquetes de ROS entre sus
+repositorios. Los paquetes se pueden instalar de forma individual, pero es
+recomendable realizar una instalación completa para no echar en falta ningún
+paquete en el futuro. Para ello en la terminal instalamos el siguiente paquete:
+\\
+\begin{lstlisting}
+  $ sudo apt-get install ros-indigo-desktop-full
+\end{lstlisting}
+
+El paquete 'ros-indigo-desktop-full' viene con muchas de las herramientas que se
+han usado en el proyecto: Rviz, Rtabmap, Rqt, etc. Aunque no incluye la
+herramienta 'rosinstall' la cual permite instalar paquetes de ROS
+independientemente del sistema:
+\\
+\begin{lstlisting}
+  $ sudo apt-get install python-rosinstall
+\end{lstlisting}
+
+%--------------------------------------
+\paragraph{Configuración de ROS} \hspace{0pt} \\
+
+Antes de poder utilizar ROS es necesario configurar 'rosdep'. Esta herramienta
+permite instalar fácilmente dependencias del sistema que surgen cuando se
+requiere compilar el código fuente de un paquete ROS. Es necesario introducir en
+una terminal lo siguiente:
+\\
+\begin{lstlisting}
+  $ sudo rosdep init
+  $ rosdep update
+\end{lstlisting}
+
+Por último, también es conveniente cargar las variables del entorno de ROS. Si
+se utiliza Bash como shell basta con introducir lo siguiente:
+\\
+\begin{lstlisting}
+  $ echo "source /opt/ros/indigo/setup.bash" >> ~/.bashrc
+  $ source ~/.bashrc
+\end{lstlisting}
+
+En caso de utilizar otra shell por defecto (por ejemplo Zsh), en 
+'/opt/ros/indigo' también se cuenta con el script equivalente, cuyo contenido es
+necesario volcar en el archivo de configuración de la shell. Con esto último,
+todas las variables de entorno se cargan automáticamente al abrir una nueva
+shell.
+
+%--------------------------------------
+\paragraph{Crear un workspace} \hspace{0pt} \\
+Un workspace es un directorio donde se trabaja con paquetes catkin (los paquetes
+oficiales utilizados por ROS), pudiendo modificar, compilar o añadir nuevos
+paquetes.
+
+Al igual que en el entorno real, se puede crear un directorio en el directorio
+personal del usuario que va a contener el workspace:
+\\
+\begin{lstlisting}
+  $ mkdir -p ~/ROS/ws/src
+  $ cd ~/ROS/ws/src
+  $ catkin_init_workspace
+\end{lstlisting}
+
+Con el último comando, se inicia el workspce, creando un archivo de
+instrucciones de Cmake. Por último, es necesario compilar estas instrucciones:
+\\
+\begin{lstlisting}
+  $ cd ~/ROS/ws
+  $ catkin_make
+\end{lstlisting}
+
+Tras finalizar la compilación, el directorio del workspace estará estructurado
+como un workspace válido. Al igual que es necesario añadir a los archivos de
+configuración de la shell las variables de ROS, también es recomendable añadir
+los del workspace:
+\\
+\begin{lstlisting}
+  $ echo "source ~/ROS/ws/devel/setup.bash" >> ~/.bashrc
+  $ source ~/.bashrc
+\end{lstlisting}
+
+%--------------------------------------
+\paragraph{Crear un paquete} \hspace{0pt} \\
+Es posible crear un nuevo paquete catkin en un workspace existente, para ello es
+necesaria escribir en una terminal lo siguiente:
+\\
+\begin{lstlisting}
+  $ cd ~/ROS/ws/src
+  $ catkin_create_pkg myps4eye
+\end{lstlisting}
+
+En este caso se ha creado un paquete llamado 'myps4eye'. Con este último comando
+se creará una carpeta nueva con los archivos de configuración necesarios para
+compilar el paquete. Si se modifica el código fuente, en un paquete del
+workspace, es necesario compilarlo de la siguiente forma:
+\\
+\begin{lstlisting}
+  $ cd ~/ROS/ws
+  $ catkin_make
+\end{lstlisting}
+
+%--------------------------------------
+\paragraph{Sistema de archivos} \hspace{0pt} \\
+Una de las mayores ventajas que tiene ROS está en el sistema de archivos. Aunque
+los proyectos y los paquetes están almacenados en directorios, existen una serie
+de comandos muy útiles para acceder, o modificar rápidamente paquetes.
+
+Mostrar archivos:
+\\
+\begin{lstlisting}
+  $ rosls [ruta[/subdirectorio]]
+\end{lstlisting}
+
+Cambiar de directorio:
+\\
+\begin{lstlisting}
+  $ roscd [ruta[/subdirectorio]]
+\end{lstlisting}
+
+Editar archivo de un paquete:
+\\
+\begin{lstlisting}
+  $ rosed [paquete] [archivo]
+\end{lstlisting}
+
+Buscar paquetes:
+\\
+\begin{lstlisting}
+  $ rospack find [paquete]
+\end{lstlisting}
+
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\subsection{Instalación y configuración de Playstation Camera}
+% https://github.com/longjie/ps4eye
+
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
