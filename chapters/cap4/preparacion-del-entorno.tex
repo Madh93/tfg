@@ -24,7 +24,8 @@ detalles como la versión o el nombre de la distribución.
 % http://wiki.ros.org/ROS/Tutorials
 
 %--------------------------------------
-\paragraph{Instalar ROS} \hspace{0pt} \\
+\paragraph{Instalar ROS} \hspace{0pt}
+
 ROS no se encuentra en los paquetes oficiales de Ubuntu, es necesario añadir un
 repositorio externo, el oficial de ROS. Para ello se introduce lo siguiente en
 una terminal:
@@ -65,7 +66,7 @@ independientemente del sistema:
 \end{lstlisting}
 
 %--------------------------------------
-\paragraph{Configuración de ROS} \hspace{0pt} \\
+\paragraph{Configuración de ROS} \hspace{0pt}
 
 Antes de poder utilizar ROS es necesario configurar 'rosdep'. Esta herramienta
 permite instalar fácilmente dependencias del sistema que surgen cuando se
@@ -92,7 +93,8 @@ todas las variables de entorno se cargan automáticamente al abrir una nueva
 shell.
 
 %--------------------------------------
-\paragraph{Crear un workspace} \hspace{0pt} \\
+\paragraph{Crear un workspace} \hspace{0pt}
+
 Un workspace es un directorio donde se trabaja con paquetes catkin (los paquetes
 oficiales utilizados por ROS), pudiendo modificar, compilar o añadir nuevos
 paquetes.
@@ -125,7 +127,8 @@ los del workspace:
 \end{lstlisting}
 
 %--------------------------------------
-\paragraph{Crear un paquete} \hspace{0pt} \\
+\paragraph{Crear un paquete} \hspace{0pt}
+
 Es posible crear un nuevo paquete catkin en un workspace existente, para ello es
 necesaria escribir en una terminal lo siguiente:
 \\
@@ -145,7 +148,8 @@ workspace, es necesario compilarlo de la siguiente forma:
 \end{lstlisting}
 
 %--------------------------------------
-\paragraph{Sistema de archivos} \hspace{0pt} \\
+\paragraph{Sistema de archivos} \hspace{0pt}
+
 Una de las mayores ventajas que tiene ROS está en el sistema de archivos. Aunque
 los proyectos y los paquetes están almacenados en directorios, existen una serie
 de comandos muy útiles para acceder, o modificar rápidamente paquetes.
@@ -179,5 +183,75 @@ Buscar paquetes:
 \subsection{Instalación y configuración de Playstation Camera}
 % https://github.com/longjie/ps4eye
 
+La Playstation Camera solamente tiene soporte oficial para la consola
+Playstation 4 de Sony. Sin embargo varios desarrolladores de forma independiente
+han trabajado en hacer funcionar la cámara en PC. Por otra parte también se ha
+desarrollado un paquete no oficial para ROS que permite la utilización de la
+cámara como si de una cámara estéreo más se tratase.
+
+%--------------------------------------
+\paragraph{Requisitos} \hspace{0pt}
+
+% http://ps4eye.tumblr.com/
+En primer lugar se necesita el modelo CUH-ZEY1J de Playstation Camera (hasta el
+momento el único modelo disponible en el mundo). La principal dificultad con la
+que cuenta es que es necesario alterar el cable de la cámara para modificar el
+puerto propietario por un puerto USB 3.0 estándar.
+
+En segundo lugar es necesario utilizar una versión de kernel superior a la
+3.17.3. Para descargar esta versión concreta podemos realizar las siguientes
+acciones en una terminal:
+\\
+\begin{lstlisting}
+  $ wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v3.17.3-vivid/linux-headers-3.17.3-031703_3.17.3-031703.201411141335_all.deb
+  $ wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v3.17.3-vivid/linux-headers-3.17.3-031703-generic_3.17.3-031703.201411141335_amd64.deb
+  $ wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v3.17.3-vivid/linux-image-3.17.3-031703-generic_3.17.3-031703.201411141335_amd64.deb
+\end{lstlisting}
+
+Y para instalar:
+\\
+\begin{lstlisting}
+  $ sudo dpkg -i linux-headers-3.17.3*.deb linux-image-3.17.3*.deb
+\end{lstlisting}
+
+También es necesario instalar el paquete Pyusb para que funcione correctamente:
+\\
+\begin{lstlisting}
+  $ which pip > /dev/null 2>&1 || sudo apt-get install python-pip
+  $ sudo pip install --pre pyusb
+\end{lstlisting}
+
+%--------------------------------------
+\paragraph{Instalación} \hspace{0pt}
+
+Para instalar el paquete de ROS necesitamos clonar el repositorio dle proyecto
+que está alojado en Github:
+\\
+\begin{lstlisting}
+  $ cd ~/ROS/ws
+  $ git clone https://github.com/longjie/ps4eye.git
+\end{lstlisting}
+
+Se necesitan añadir las reglas correspondientes de la cámara en el control de
+dispositivos de Linux (udev). Para ello ya podemos trabajar con ROS para
+interactuar con el paquete:
+\\
+\begin{lstlisting}
+  $ rosrun ps4eye create_udev_rules
+\end{lstlisting}
+
+Una vez hecho, si se conecta la cámara al ordenador mediante un puerto USB 3.0
+se debería poder visualizar la cámara con cualquier aplicación de captura de
+cámara web. Para comprobar el funcionamiento ejecutamos el siguiente launch del
+paquete:
+\\
+\begin{lstlisting}
+  $ roslaunch ps4eye stereo.launch DEVICE:=/dev/video0 viewer:=true
+\end{lstlisting}
+
+En este caso se supone que la cámara está en '/dev/video0', aunque si se utiliz
+un portátil u otra cámara es necesario que corresponda con otro dispositivo. Se
+debería visualizar la cámara izquierda y la cámara derecha junto con una imagen
+de disparidad generada a partir de ambas imágenes.
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
