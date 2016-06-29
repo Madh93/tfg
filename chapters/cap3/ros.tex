@@ -16,7 +16,7 @@ realizar software robótico. Entre las principales funciondalidades destacan una
 abstracción del hardware, el control de dispositivos, paso de mensajes entre los
 procesos y una gran variedad de herramientas y librerías. Por otra parte ROS
 cuenta con un sistema de paquetes, que permite instalar, compilar e incluso
-modificar paquetes externos creados por la comunidad. 
+modificar paquetes externos creados por la comunidad.
 
 % http://erlerobotics.com/blog/ros-introduction-es/
 El objetivo principal es permitir la abstracción y la simplifación de  muchas de
@@ -85,7 +85,7 @@ fundamental del servicio de paquetes de ROS que existe actualmente. En apenas un
 año, el proyecto paso a desarollarse por la institución de investigación
 robótica Willow Garage, junto con la colaboración de más de veinte
 instituciones. Mientras tanto, el uso de una licencia permisiva de código
-abierto permitió que de forma gradual ROS se empezará a implementar en 
+abierto permitió que de forma gradual ROS se empezará a implementar en
 diferentes comunidades de desarrollo robótico. Finalmente, en 2013, ROS se
 transferió a la Open Source Robotics Fundation.
 
@@ -106,7 +106,7 @@ ejemplo controlar un láser, controlar los motores de las ruedas o planificar la
 trayectoria del robot. Cada nodo tiene un nombre único en el sistema, para
 evitar ambiguedad a la hora de comunicarse entre sí. Los nodos pueden ser
 escritos en los diferentes lenguajes de las librerías del cliente de ROS (C++ o
-Python por ejemplo). 
+Python por ejemplo).
 
 % https://msdn.microsoft.com/es-es/library/ms152567(v=sql.120).aspx
 Por otra parte, el patrón publicación/suscripción permite pasar información de
@@ -144,7 +144,7 @@ Una de las mayores ventajas del sistema de publicación/suscripción es que es
 anónimo y asíncrono, por lo que los mensajes que se transmiten no se modifican.
 Sin embargo, a veces es necesario realizar comunicaciones entre los nodos de
 manera síncrona o mediante interacciones de petición y respuesta en vez de
-realizar el transporte de los mensajes en un ún único sentido. Para ello, ROS 
+realizar el transporte de los mensajes en un ún único sentido. Para ello, ROS
 ofrece lo que se llaman servicios. La petición y respuesta se definen mediante
 una estructura de mensajes, una para la petición y otra para la respuesta.
 
@@ -168,17 +168,63 @@ necesario que este activo el ROS Master. Se trata del nodo maestro, sin él los
 nodos no podrían encontrar al resto de nodos, tampoco se podría intercambiar
 mensajes o invocar servicios.
 
+En la figura ~\ref{fig:Ros-Diagram} se puede observar una implementación de como
+captura imágenes un robot. Por un lado existen tres nodos: el nodo de la cámara
+que recibe de la cámara, y los nodos de procesamiento de las imágenes y la
+visualización de las mismas. Estos dos nodos están suscritos al tópico
+'/image-data' que publica el nodo de la cámara. Cada vez que la cámara registra
+una nueva imagen se transmite a los otros nodos.
 
-FOTO DE DIAGRAMA DE LOS NODOS
+\begin{minipage}{\linewidth}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/cap3/RosDiagrama.eps}
+    \captionof{figure}{Ejemplo de captura de imágenes}
+    \label{fig:Ros-Diagram}
+\end{minipage}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \subsection{Características}
-% CATKIN muy importante!
-% http://wiki.ros.org/catkin/conceptual_overview
+% http://www.ros.org/core-components/
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \subsection{Herramientas}
 % http://www.ros.org/core-components/
+Una de las características más importatnes de ROS está en las herramientas de
+desarrollo disponibles. Existe una gran variedad de software de todo tipo:
+visualización, depuración, resumen del estado, etc. Gracias al mecanismo de
+publicación/suscripción es muy sencillo observar y depurar lo que está
+ocurriendo en todo momento.
+
+Por otra parte, ROS puede ser utilizado sin necesidad de usar una interfaz
+gráfica (GUI). Toda las características y funcionalidades de ROS pueden
+realizarse a través de más de 45 comandos en consola: lanzar grupos de nodos,
+examinar tópicos y servicios, grabar y reproducier bolsas de datos, etc. En
+cualquier otro caso existe una importante variedad de herramientas con interfaz
+gráfica que extienden la funcionalidad de estos comandos. A continuación se
+pueden ver algunos de ellos.
+
+%--------------------------------------
+\paragraph{RTAB-Map} \hspace{0pt}
+
+Construir el mapa, que mas quieres
+
+%--------------------------------------
+\paragraph{RViz} \hspace{0pt}
+
+RViz es una herramienta de propósito general que permite visualizar en un
+espacio tridimensiona mucho de los elementos de un robot como ruedas, brazos o
+sensores láser. RViz también puede visualizar diferentes mensajes comúnes de ROS
+como barridos láser, nube de puntos, las imágenes de las cámaras o también con
+la posibilidad de mostrar el mapa del entorno (previamente almacenado).
+
+RViz también puede interactuar con la información de la biblioteca 'tf' para
+mostrar toda la información del sistema de coordenadas de los sensores desde
+diferentes perespectivas. Entre las ventajas, destaca que se trata de una
+herramienta muy importante ya que permite visualizar que ocurre en el robot en
+cada momento en busca de errores.
+
+%--------------------------------------
+\paragraph{RQt} \hspace{0pt}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \subsection{4}
