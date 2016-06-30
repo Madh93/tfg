@@ -12,14 +12,14 @@
 
 % http://www.ros.org/about-ros/
 ROS (Robot Operating System) es un framework de código abierto diseñado para
-realizar software robótico. Entre las principales funciondalidades destacan una
+realizar software robótico. Entre las principales funcionalidades destacan una
 abstracción del hardware, el control de dispositivos, paso de mensajes entre los
 procesos y una gran variedad de herramientas y librerías. Por otra parte ROS
 cuenta con un sistema de paquetes, que permite instalar, compilar e incluso
 modificar paquetes externos creados por la comunidad.
 
 % http://erlerobotics.com/blog/ros-introduction-es/
-El objetivo principal es permitir la abstracción y la simplifación de  muchas de
+El objetivo principal es permitir la abstracción y la simplificación de  muchas de
 las tareas que conllevan construir un robot de forma independiente, uno de los
 principales problemas que llevan a condenar al fracaso este tipo de proyectos,
 mediante el desarrollo de software colaborativo. En definitiva, ROS promueve la
@@ -37,8 +37,7 @@ comunidad para conseguir mejores resultados en conjunto.
 El software de ROS se distribuye de la siguiente manera:
 
 \begin{itemize}
-  \item Herramientas y lenguajes independientes para construir y distruibuir
-  ROS.
+  \item Herramientas y lenguajes independientes para construir y distribuir ROS.
   \item Librerías del cliente de ROS que facilitan el desarrollo.
   \item Paquetes que contienen la aplicación del usuario.
 \end{itemize}
@@ -73,7 +72,7 @@ respuesta alto.
 
 % http://www.ros.org/about-ros/
 El origen de ROS se remonta a 2007, cuando Willow Garage pensó en la necesidad
-de de diseñar un sistema más flexivle y robusto para el desarrollo de robots
+de de diseñar un sistema más flexible y robusto para el desarrollo de robots
 después de que en en el laboratorio de inteligencia artificial de la universidad
 de Standford es estuvieran realizando diferentes proyectos que integraban el uso
 de robots e inteligencia artificial como STandard AI Robot (STAIR) y Personal
@@ -104,7 +103,7 @@ del sistema mediante un mecanismo que usa el patrón de publicación/suscripció
 Los nodos son los procesos que se encargan de las tareas concretas, como por
 ejemplo controlar un láser, controlar los motores de las ruedas o planificar la
 trayectoria del robot. Cada nodo tiene un nombre único en el sistema, para
-evitar ambiguedad a la hora de comunicarse entre sí. Los nodos pueden ser
+evitar ambigüedad a la hora de comunicarse entre sí. Los nodos pueden ser
 escritos en los diferentes lenguajes de las librerías del cliente de ROS (C++ o
 Python por ejemplo).
 
@@ -114,13 +113,13 @@ una manera sencilla y segura entre los nodos. En este patrón, existen dos
 actores:
 
 \begin{itemize}
-  \item Publicador: publica la información.
-  \item Suscriptor: recibe la información.
+  \item \textbf{Publicador:} publica la información.
+  \item \textbf{Suscriptor:} recibe la información.
 \end{itemize}
 
 Una aproximación real de este patrón puede ser el editor de una revista. El
 editor (publicador) escribe un número nuevo cada mes. Este número se distribuye
-directamente o a través de un distribidor. En último lugar, tenemos a una
+directamente o a través de un distribuidor. En último lugar, tenemos a una
 persona suscrita a esa revista (suscriptor), a quien le llega cada mes un nuevo
 número de la revista.
 
@@ -137,14 +136,14 @@ datos, se debe suscribir al tópico apropiado del nodo. Por ejemplo una cámara 
 un visor, ambos comparten el tópico 'imagen', cada vez que la cámara captura una
 imagen el resultado se publica (publicador), si el visor espera recibir una
 imagen y está suscrito al tópico 'imagen' de la cámara, esta se transmitirá. Un
-nodo puede publicar o suscribirse a múlitples tópicos, además, pueden haber
+nodo puede publicar o suscribirse a múltiples tópicos, además, pueden haber
 muchos publicadores concurrentemente para un sólo tópico.
 
 Una de las mayores ventajas del sistema de publicación/suscripción es que es
 anónimo y asíncrono, por lo que los mensajes que se transmiten no se modifican.
 Sin embargo, a veces es necesario realizar comunicaciones entre los nodos de
 manera síncrona o mediante interacciones de petición y respuesta en vez de
-realizar el transporte de los mensajes en un ún único sentido. Para ello, ROS
+realizar el transporte de los mensajes en un un único sentido. Para ello, ROS
 ofrece lo que se llaman servicios. La petición y respuesta se definen mediante
 una estructura de mensajes, una para la petición y otra para la respuesta.
 
@@ -172,7 +171,7 @@ En la figura ~\ref{fig:Ros-Diagram} se puede observar una implementación de com
 captura imágenes un robot. Por un lado existen tres nodos: el nodo de la cámara
 que recibe de la cámara, y los nodos de procesamiento de las imágenes y la
 visualización de las mismas. Estos dos nodos están suscritos al tópico
-'/image-data' que publica el nodo de la cámara. Cada vez que la cámara registra
+'/image\_data' que publica el nodo de la cámara. Cada vez que la cámara registra
 una nueva imagen se transmite a los otros nodos.
 
 \begin{minipage}{\linewidth}
@@ -186,10 +185,37 @@ una nueva imagen se transmite a los otros nodos.
 \subsection{Características}
 % http://www.ros.org/core-components/
 
+ROS proporciona un gran número de librerías para resolver los problemas comunes
+en el desarrollo robótico con el objetivo de simplificar el la dura carga de
+tiempo y trabajo que eso supone. Estas son algunas de las principales
+características:
+
+\begin{itemize}
+  \item \textbf{Mensajes estándar:} existe una gran variedad de mensajes básicos
+  ya definidos para la mayoría de tareas del robot como la pose, coordenadas de
+  transformación, sensores, odometría, mapas, etc. 
+  \item \textbf{Geometría del robot:} la librería 'tf' se encarga de detectar
+  las diferentes partes de un robot frente al resto de ellas, siendo posible
+  coordinar y transformar más de cien grados de libertad.
+  \item \textbf{Lenguaje de descripción:} ROS permite describir las
+  particularidades de un robot de una manera redactable. Para ello se usa URDF
+  (Unified Robot Description Format), un lenguaje de descripción basado en XML
+  que describe todas las características físicas del robot como el tamaño de las
+  ruedas, la distancia entre los diferentes componentes e incluso la apariencia
+  visual de cada elemento.
+  \item \textbf{Diagnóstico:} se ha diseñado un sistema capaz de recoger toda la
+  información del robot, para poder registrar, analizar y resolver cualquier
+  problema presente en el estado del robot.
+  \item \textbf{Navegación:} la mayoría de problemas en la navegación de un
+  robot como la estimación de la pose, la localización en un mapa y la
+  construcción del misma, son fácilmente resolubles mediante los paquetes que
+  proporciona ROS sin necesidad de buscar soluciones propias o de terceros.
+\end{itemize}
+
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \subsection{Herramientas}
 % http://www.ros.org/core-components/
-Una de las características más importatnes de ROS está en las herramientas de
+Una de las características más importantes de ROS está en las herramientas de
 desarrollo disponibles. Existe una gran variedad de software de todo tipo:
 visualización, depuración, resumen del estado, etc. Gracias al mecanismo de
 publicación/suscripción es muy sencillo observar y depurar lo que está
@@ -198,33 +224,73 @@ ocurriendo en todo momento.
 Por otra parte, ROS puede ser utilizado sin necesidad de usar una interfaz
 gráfica (GUI). Toda las características y funcionalidades de ROS pueden
 realizarse a través de más de 45 comandos en consola: lanzar grupos de nodos,
-examinar tópicos y servicios, grabar y reproducier bolsas de datos, etc. En
+examinar tópicos y servicios, grabar y reproducir bolsas de datos, etc. En
 cualquier otro caso existe una importante variedad de herramientas con interfaz
 gráfica que extienden la funcionalidad de estos comandos. A continuación se
 pueden ver algunos de ellos.
 
+% http://introlab.github.io/rtabmap/
 %--------------------------------------
-\paragraph{RTAB-Map} \hspace{0pt}
+\paragraph{RTAB-Map ROS} \hspace{0pt}
 
-Construir el mapa, que mas quieres
+Esta herramienta es una extensión del software original RTAB-Map. RTAB-Map
+es un aprovechamiento de las técnicas de SLAM capaz de detectar los cierres de
+bucles en la navegación de un robot a partir de la apariencia de las imágenes,
+los cuales son registrados en un grafo que representa el mapa. Por otra parte,
+permite la reconstrucción tridimensional del mapa, el cuál es representado como
+una nube de puntos. 
+
+ROS cuenta con RTABMapviz para visualizar de forma gráfica el resultado de la
+detección de los cierres de bucle y la generación en vivo del mapa
+tridimensional.
 
 %--------------------------------------
 \paragraph{RViz} \hspace{0pt}
 
 RViz es una herramienta de propósito general que permite visualizar en un
-espacio tridimensiona mucho de los elementos de un robot como ruedas, brazos o
-sensores láser. RViz también puede visualizar diferentes mensajes comúnes de ROS
+espacio tridimensional mucho de los elementos de un robot como ruedas, brazos o
+sensores láser. RViz también puede visualizar diferentes mensajes comunes de ROS
 como barridos láser, nube de puntos, las imágenes de las cámaras o también con
 la posibilidad de mostrar el mapa del entorno (previamente almacenado).
 
 RViz también puede interactuar con la información de la biblioteca 'tf' para
 mostrar toda la información del sistema de coordenadas de los sensores desde
-diferentes perespectivas. Entre las ventajas, destaca que se trata de una
+diferentes perspectivas. Entre las ventajas, destaca que se trata de una
 herramienta muy importante ya que permite visualizar que ocurre en el robot en
 cada momento en busca de errores.
 
 %--------------------------------------
 \paragraph{RQt} \hspace{0pt}
 
+RQt es un framework escrito en Qt como el nombre indica que permite desarrollar
+aplicaciones personalizadas con interfaz gráfica para cualquier robot. RQt trae
+consigo una gran variedad de plugins y/o utilidades para trabajar, de esta forma
+cualquier usuario puede modificar según sus necesidades la apariencia y
+distribución de estos. Aunque también es posible escribir nuevos plugins
+ajustados a la medida de cualquier usuario.
+
+Entre los principales plugins, destacan:
+
+\begin{itemize}
+  \item \textbf{rqt\_image\_view:} se trata de la adaptación del paquete de ROS
+  'image\_view. Permite visualizar todas las imágenes disponibles en los
+  diferentes tópicos activos, tanto imágenes normales, como imágenes en
+  estéreo e imágenes de disparidad.
+  \item \textbf{rqt\_bag:} permite grabar y gestionar bolsas de datos. Una bolsa
+  en formato que permite almacenar todos tipo de datos previamente grabados como
+  la lectura de sensores, las imágenes capturadas o el sistema de coordenadas
+  utilizado. Son de gran utilidad para depurar y comparar con otras bolsas, ya
+  que se pueden visualizar siempre que se deseen sin necesidad de utilizar el
+  robot que se utilizó.
+  \item \textbf{rqt\_graph:} muestra el estado actual del sistema en forma de
+  grafo, como los nodos y las conexiones entre ellos, siendo de gran utilidad
+  para la depuración de errores ya que son una forma rápida de ver que todo está
+  el sistema está conectado correctamente.
+  \item \textbf{rqt\_reconfigure:} adaptación del paquete 'dynamic\_reconfigure'
+  que que permite modificar en tiempo real todos los parámetros de los nodos,
+  para realizar modificaciones rápidas al vuelo. La configuración de los
+  parámetros se puede exportar para utilizar en el futuro.
+\end{itemize}
+
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\subsection{4}
+
