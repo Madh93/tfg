@@ -35,7 +35,7 @@ adecuado, en esta ocasión se hará uso de un hangar de tamaño medio en el que 
 condiciones lumínicas son idóneas.
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\subsection{Reonstrucción del mapa}
+\subsection{Reconstrucción del mapa}
 
 % DIAGRAMAdelCARRITO
 % https://www.gliffy.com/examples/network_diagrams
@@ -140,10 +140,10 @@ opciones que se desean lanzar, en vez de ser ejecutadas directamente desde
 terminal. Se trata de la mejor opción cuando se desean lanzar muchos nodos a los
 cuáles hay además que modificar sus parámetros.
 
-Este launch puede encontrarse en el anexo X, y en él se puede ver como se lanzan
-los nodos 'stereo\_odometry' y 'rtabmap' de 'rtabmap\_ros', y de forma opcional
-también el nodo 'rtabmapviz' y otros paquetes de visualización como 'rviz' y el
-paquete 'tf'.
+Este launch puede encontrarse en el anexo ~\ref{appendix:carrito}, y en él se
+puede ver como se lanzan los nodos 'stereo\_odometry' y 'rtabmap' de
+'rtabmap\_ros', y de forma opcional también el nodo 'rtabmapviz' y otros
+paquetes de visualización como 'rviz' y el paquete 'tf'.
 
 El paquete 'tf' se encarga de determinar las coordenadas de transformación de
 cada uno de los elementos de un robot. El nodo 'static\_transform\_publisher' se
@@ -151,7 +151,7 @@ encarga de realizar una transformación de coordenadas a partir de los ejes
 x,y,z.
 
 %--------------------------------------
-\paragraph{Reonstrucción y visualización} \hspace{0pt}
+\paragraph{Reconstrucción y visualización} \hspace{0pt}
 
 Con 'rtabmap' o 'rtabmapviz' se puede seleccionar dos modos de trabajo:
 construcción o localización. Para poder localizarse, es necesario tener un mapa
@@ -179,24 +179,59 @@ encargará de detectar este cierre para poder optimizar el mapa.
 \end{minipage}
 
 Tras haber construido el mapa, los resultados pueden visualizarse con 'rviz'. En
-la figura X se puede observar como se ve la nube de puntos que representa al
-mapa 3D y la odometría del Robot. En este caso se dio dos vueltas alrededor de
-la misma estructura.
+la figura ~\ref{fig:Ros-Diagram} se puede observar como se ve la nube de puntos
+que representa al mapa 3D y la odometría del Robot. En este caso se dio dos
+vueltas alrededor de la misma estructura.
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \subsection{Ajuste de parámetros}
-
-El paquete 'stereo\_image\_proc'
+% choosing good sereo parameters
+El paquete 'stereo\_image\_proc' cuenta con una serie de parámetros que pueden
+modificarse de manera dinámica utilizando la herramienta 'rqt\_reconfigure'. Para
+lanzarlo se escribe en una terminal:
 \\
 \begin{lstlisting}
   $ rosrun rqt_reconfigure rqt_reconfigure
 \end{lstlisting}
 
+Gracias a esto podemos obtener mejores resultados. Aquí una pequeña descripción:
+
+\begin{itemize}
+  \item \textbf{Prefiltrado:}
+  \begin{enumerate}
+    \item \textbf{prefilter\_size:} tamaño de normalización de la imagen.
+    \item \textbf{prefilter\_cap:} cota normalizada de los píxeles.
+  \end{enumerate}
+  \item \textbf{Correspondencia:}
+  \begin{enumerate}
+    \item \textbf{correlation\_window\_size:} diferencia de disparidad. 
+    \item \textbf{min\_disparity:} valor mínimo de disparidad.
+    \item \textbf{disparity\_range:} número de disparidades que buscar.
+  \end{enumerate}
+  \item \textbf{Postfiltrado:}
+  \begin{enumerate}
+    \item \textbf{uniqueness\_ratio:} filtro de sigularidades.
+    \item \textbf{texture\_threshold:} disminución del ruido de fondo.
+    \item \textbf{speckle\_size:} tamaño mínimo de las regiones a calcular.
+    \item \textbf{speckle\_range:} máxima diferencia entre disparidades.
+  \end{enumerate}
+\end{itemize}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \subsection{Conclusiones}
 
-Problemas -> odometria visual nada mas -> implementaicon con la silla
+Tras obtener el mapa y la odometría, el resultado no dista demasiado de la
+realidad. Sin embargo hay que tener en cuenta de que se ha trabajado en un
+entorno con las condiciones lumínicas necesarias y donde el espacio recorrido ha
+sido muy pequeño.
 
+La odometría visual es suficiente para conseguir resultados aceptables, pero se
+sale de ambientes controlados con picos de luz como en el exterior con mucho sol
+o en interiores con poca luminosidad, los resultados pueden no tener el efecto
+resultado.
+
+Es por ello, que habitualmente se utilizan más información para contrastar la
+odometría visual, y por tanto, es por ello que se ha trabajdo con la silla del
+proyecto Perenquén.
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
