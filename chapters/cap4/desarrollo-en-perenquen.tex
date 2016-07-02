@@ -167,9 +167,15 @@ realizar.
 % http://wiki.ros.org/robot_localization#ekf_localization_node
 % http://wiki.ros.org/robot_pose_ekf
 
-LaserScanMatcher -> permite integrar cualquier odometria (en este caso mecanica)
-RobotLocalization -> estimacion del estado de la posicion a partir de los sensores ademas de corregirlo (Filtro extendido de kalman)
-RobotPoseEKF -> estimar la pose 3D de u robot (posicion y orientacion)
+Se hace uso de los siguientes nodos:
+
+\begin{itemize}
+  \item \textbf{laser\_scan\_matcher:} permite integrar la odometría mecánica con la odometría de la odometría de cada láser.
+  \item \textbf{robot\_localization:} permite estimar el estado de la posición a partir de los sensores aplicando el Filtro de Kalman Extendido.
+  \item \textbf{robot\_pose\_ekf:} permite estimar la pose 3D del robot.
+\end{itemize}
+
+El resultado final, es una odometría combinación de las anteriores.
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \subsection{Resultados en interiores}
