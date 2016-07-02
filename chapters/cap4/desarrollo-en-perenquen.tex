@@ -8,7 +8,7 @@
 
 Como se ha señalado en la sección anterior, la odometría visual no es suficiente
 para un sistema de navegación robusto. La silla Perenquén ofrece odometría
-mecánica y oodmetría láser, por lo que entre las tres ofreceran mejores
+mecánica y oodmetría láser, por lo que entre las tres ofrecerán mejores
 resultados.
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -146,28 +146,126 @@ que calibrar la cámara cada vez que se vaya a usar. Los archivos de calibració
 se cargados por son cargados en el launch. % ~\ref{appendix:perenquen-stereo}.
 
 %--------------------------------------
-\paragraph{algo} \hspace{0pt}
+\paragraph{Odometría} \hspace{0pt}
 
+A partir de la silla Perenquén y PlayStation Camera se puede obtener:
 
+\begin{itemize}
+  \item Odometría láser
+  \item Odometría mecánica
+  \item Odometría visual
+\end{itemize}
 
-Integrar los 3 (pieza gorda)
+Recordando lo que se vio en la sección anterior, la reconstrucción del mapa se
+consigue mediante el nodo 'rtabmap' del paquete 'rtabmap\_ros'. Este nodo está
+suscrito a un tópico 'odom' que contiene la odometría. Por lo que a partir de
+las tres odometrías anteriores, se necesita obtener una única odometría que
+tenga lo mejor de las tres, una tarea que realmente no es muy sencilla de
+realizar.
 
-Extra -> grabacion frente a construccion -> launchs:
-  - stereo.launch
-  - sensors3.launch
-  - stereo\_mapping2.launch
-  
-frente a:
-  - ps4eye\_rtabmap.launch -> funcionamiento idenico al anterior
+% http://wiki.ros.org/laser_scan_matcher
+% http://wiki.ros.org/robot_localization#ekf_localization_node
+% http://wiki.ros.org/robot_pose_ekf
 
+LaserScanMatcher -> permite integrar cualquier odometria (en este caso mecanica)
+RobotLocalization -> estimacion del estado de la posicion a partir de los sensores ademas de corregirlo (Filtro extendido de kalman)
+RobotPoseEKF -> estimar la pose 3D de u robot (posicion y orientacion)
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \subsection{Resultados en interiores}
 
+Estos son los resultados en el pasillo que comunica la cafetería de la facultad
+de Física y Matemáticas con la salida al parking.
 
+En la figura ~\ref{fig:Interiores-Rviz} se puede observar el resultado de la
+combinación de las odometrías. En color azul se puede apreciar la odometría
+final (láser, mecánica y visual) la cuál va acorde con el mapa. La línea
+amarilla representa a la odometría mecánica, y está ligeramente desplazada
+debido a un error al comienzo de la grabación de las imágenes, probablemente
+porque la silla giró demasiado rápido provocando una incertidumbre.
+
+
+% \begin{wrapfigure}{l}{0.5\textwidth}
+%   \vspace{-20pt}
+%   \begin{center}
+%     \includegraphics[width=0.48\textwidth]{images/cap4/Interiores-rtabmap-lejos.eps}
+%   \end{center}
+%   \vspace{-20pt}
+%   \caption{Calibración de las cámaras.}
+%   \vspace{-10pt}
+%   \label{fig:Calibracion}
+% \end{wrapfigure}
+% 
+% \begin{wrapfigure}{r}{0.5\textwidth}
+%   \vspace{-20pt}
+%   \begin{center}
+%     \includegraphics[width=0.48\textwidth]{images/cap4/Interiores-rtabmap-cerca.eps}
+%   \end{center}
+%   \vspace{-20pt}
+%   \caption{Calibración de las cámaras.}
+%   \vspace{-10pt}
+%   \label{fig:Calibracion}
+% \end{wrapfigure}
+
+\begin{minipage}{\linewidth}
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/cap4/Interiores-rtabmap-lejos.eps}
+    \captionof{figure}{Vista aérea del mapa en RTAB-Map}
+    \label{fig:Interiores-Rtabmap-Lejos}
+\end{minipage}
+
+\begin{minipage}{\linewidth}
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/cap4/Interiores-rtabmap-cerca.eps}
+    \captionof{figure}{Vista dentro del mapa en RTAB-Map}
+    \label{fig:Interiores-Rtabmap-Cerca}
+\end{minipage}
+
+\begin{minipage}{\linewidth}
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/cap4/Interiores-rviz.eps}
+    \captionof{figure}{Comparación de la odometría en RViz}
+    \label{fig:Interiores-Rviz}
+\end{minipage}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \subsection{Resultados en exteriores}
+
+Los resultados en los exteriores se tomaron de la Avenida de la Trinidad, en La
+Laguna.
+
+En líneas generales, los resultados son buenos, aunque como se puede apreciar en
+la figura ~\ref{fig:Exteriores-Rtabmap-Lejos}, el mapa sufre de extraños saltos.
+No es de extrañar que los resultados pueden variar respecto a la realidad, y es
+que la odometría es muy susceptible a pequeños fallos. En este caso, se debe
+debido a algunos giros bruscos a la hora de esquivar los objetos y/o peatones
+que surgían durante la grabación de la escena.
+
+Al igual que en el caso de interiores, se produce una diferencia sustancial
+entre la odometría combinada respecto a la mecánica como se puede observar en la
+figura ~\ref{fig:Exteriores-Rviz}.
+
+\begin{minipage}{\linewidth}
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/cap4/Exteriores-rtabmap-lejos.eps}
+    \captionof{figure}{Vista aérea del mapa en RTAB-Map}
+    \label{fig:Exteriores-Rtabmap-Lejos}
+\end{minipage}
+
+\begin{minipage}{\linewidth}
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/cap4/Exteriores-rtabmap-cerca.eps}
+    \captionof{figure}{Vista dentro del mapa en RTAB-Map}
+    \label{fig:Exteriores-Rtabmap-Cerca}
+\end{minipage}
+
+\begin{minipage}{\linewidth}
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/cap4/Exteriores-rviz.eps}
+    \captionof{figure}{Comparación de la odometría en RViz}
+    \label{fig:Exteriores-Rviz}
+\end{minipage}
+
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \subsection{Mejoras en la adquisición de imágenes}
@@ -209,21 +307,3 @@ unos 40 Hz en el mejor caso, pero a aproximadamente 2 Hz en el peor caso, siendo
 imposible su implementación para obtener bueno valores de odometría visual.
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
