@@ -8,7 +8,7 @@
 
 Como se ha señalado en la sección anterior, la odometría visual no es suficiente
 para un sistema de navegación robusto. La silla Perenquén ofrece odometría
-mecánica y oodmetría láser, por lo que entre las tres ofrecerán mejores
+mecánica y odmetría láser, por lo que entre las tres ofrecerán mejores
 resultados.
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -105,7 +105,7 @@ En el caso anterior, para poder obtener las dos nuevas imágenes es necesario qu
 las cámaras estén ya calibradas. La calibración es el proceso en el que se
 comparan los valores reales obtenidos por las cámaras respecto a las de un
 patrón de referencia. La formas habitual para realizar esto, es utilizando el
-método de calibrazión de Zhang, mediante un plano 2D previamente establecido. 
+método de calibración de Zhang, mediante un plano 2D previamente establecido. 
 
 \begin{wrapfigure}{r}{0.5\textwidth}
   \vspace{-20pt}
@@ -123,7 +123,7 @@ una manera muy sencilla cualquier cámara monocoluar o estéreo mediante el uso 
 un tablero de de damas o ajedrez como el de la figura ~\ref{fig:Calibracion}.
 Este paquete dispone de un nodo llamado 'cameracalibrator.py', una aplicación
 gráfica en la que se pueden visualizar las imágenes que captura PlayStation
-Camera. Enfocando el tablero hacia la cámara y enseñandole varias perspectivas,
+Camera. Enfocando el tablero hacia la cámara y enseñándole varias perspectivas,
 se consigue ajustar la calibración de la cámara.
 
 El paquete 'ps4eye' ya cuenta con un script de calibración que cuenta con
@@ -294,7 +294,7 @@ la odometría visual en espacios cerrados.
 Por otra parte, hasta el momento se ha trabajado a una resolución de 1748x408
 (640x480 cada cámara). Esta no es la máxima resolución que permite PlayStation
 Camera. Es posible modificar la configuración utilizada hasta el momento para
-que se fuerze el uso de una resolución de 3448x808 (1280x800 cada cámara). A
+que se fuerce el uso de una resolución de 3448x808 (1280x800 cada cámara). A
 mayor resolución de las imágenes, con mayor exactitud se puede obtener
 información del entorno.
 
@@ -305,7 +305,7 @@ imágenes en estéreo de la imagen original.
 El único inconveniente de utilizar esta resolución está en el coste de
 procesamiento, de ahí la razón por la que solo se ha utilizado de forma
 experimental. De esta forma con una resolución de 1748x408 la tasa de refresco
-al que se trasmitenn las imágenes ha estado entre los 120 Hz en el mejor caso y
+al que se trasmiten las imágenes ha estado entre los 120 Hz en el mejor caso y
 los los 30 Hz en el peor caso, aunque en ambos, es una tasa de refresco más que
 suficiente para trabajar sin ningún inconveniente. En contrapartida, con la
 resolución de 3448x808 los resultados han sido más pobres, pudiendo operar a
