@@ -14,7 +14,6 @@ la reconstrucción del mapa 3D.
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \subsection{Introducción}
-
 Una primera aproximación del problema de la reconstrucción del mapa y la
 localización en el mismo, es utilizar solamente PlayStation Camera. Haciendo
 repaso de lo que se vio en el capítulo ~\ref{chapter:conceptos}, la odometría es
@@ -27,7 +26,6 @@ muestras, la única odometría que tiene presencia es la odometría visual. Esto
 un punto muy a tener en cuenta en el desarrollo y las medidas que se planean
 hacer.
 
-
 Para simular el comportamiento de un robot, la cámara se integrará en un carro
 industrial y estará conectado al ordenador encargado de recoger los datos
 mediante ROS. Por otra parte, es necesario contar con un lugar de grabación
@@ -36,18 +34,21 @@ condiciones lumínicas son idóneas.
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \subsection{Reconstrucción del mapa}
-
-% DIAGRAMAdelCARRITO
-% https://www.gliffy.com/examples/network_diagrams
-
 La idea general para la reconstrucción del mapa tridimensional es:
 
 \begin{itemize}
-  \item Capturar imágenes
+  \item Recoger imágenes de las bolsas de datos
   \item Rectificación de las imágenes
-  \item Cálculo de la disparidad
+  \item Cálculo de la disparidad y odometría
   \item Construir mapa a partir de la odometría
 \end{itemize}
+
+\begin{minipage}{\linewidth}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/cap4/Carro-esquema.eps}
+    \captionof{figure}{Esquema de ROS para construir un mapa 3D}
+    \label{fig:Carro-esquema}
+\end{minipage}
 
 %--------------------------------------
 \paragraph{Rectificación} \hspace{0pt}
@@ -64,9 +65,8 @@ cuatro tópicos: 'left/image\_raw', 'left/camera\_info', 'right/image\_raw' y
 'right/camera\_info', los cuales corresponden con las imágenes en formato RAW
 sin comprimir de la cámara y los metadatos asociadas a ellas.
 
-Con PlayStation Camera conectado al ordenador y el nodo ROS Master ejecutándose
-en segundo plano, para ejecutar el nodo 'stereo\_image\_proc' basta con
-introducir en una terminal:
+Con el nodo ROS Master ejecutándose en segundo plano, para ejecutar el nodo
+'stereo\_image\_proc' basta con introducir en una terminal:
 \\
 \begin{lstlisting}
   $ rosrun stereo_image_proc stereo_image_proc __ns:=stereo
