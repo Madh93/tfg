@@ -5,11 +5,10 @@
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 % \section{Desarrollo en Perenquén
 % \label{4:sec:3}
-
-Como se ha señalado en la sección anterior, la odometría visual no es suficiente
-para un sistema de navegación robusto. La silla Perenquén ofrece odometría
-mecánica y odmetría láser, por lo que entre las tres ofrecerán mejores
-resultados.
+Como se ha señalado en la sección ~\ref{4:sec2}, la odometría visual no es
+suficiente para un sistema de navegación robusto. La silla Perenquén ofrece
+odometría mecánica y odometría láser, por lo que entre las tres ofrecerán
+mejores resultados.
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \subsection{Introducción}
@@ -50,21 +49,18 @@ Ahora la idea general para la reconstrucción del mapa tridimensional pasa por:
 
 \begin{minipage}{\linewidth}
     \centering
-    \includegraphics[width=0.8\textwidth]{images/cap4/Carro-esquema.eps}
+    \includegraphics[width=0.8\textwidth]{images/cap4/Esquema-Ros-Perenquen.eps}
     \captionof{figure}{Esquema de ROS para construir un mapa 3D integrando las
     odometrías.}
-    \label{fig:Carro-esquema}
+    \label{fig:Esquema-Ros-Perenquen}
 \end{minipage}
 
 %--------------------------------------
 \paragraph{Ajustar cámara} \hspace{0pt}
 
-% http://www.slideshare.net/ssuser4d25e1/20160126-jetson-ps4eye01
-% http://wiki.ros.org/gscam
-% http://wiki.ros.org/image_proc#image_proc.2BAC8-cturtle.image_proc
 Para poder capturar imágenes directamente desde PlayStation Camera es necesario
-utilizar el paquete de ROS 'ps4eye' que se instaló previamente. Este paquete
-dispone de dos utilidades muy importantes, por un lado un script para la
+utilizar el paquete de ROS \textit{``ps4eye"} que se instaló previamente. Este
+paquete dispone de dos utilidades muy importantes, por un lado un script para la
 calibración de las cámaras y por otro lado la descomposición de los datos que
 obtienen ambas cámaras, en dos imágenes diferentes.
 
@@ -74,32 +70,32 @@ píxeles cada una, la realidad es muy diferente. Si se intenta utilizar
 PlayStation Camera como una webcam tradicional, el resultado en este caso sería
 una sola imagen con una resolución de 1748x408 píxeles.
 
-Es necesario utilizar el paquete de ROS 'gscam'. Se trata de un driver que
-permite utilizar el framework multimedia GStreamer para conectar cualquier
-dispositivo de vídeo, como en este caso PlayStation Camera. A este paquete solo
-es necesario especificarle las características de la cámara: de que dispositivo
-se trata, el formato de las imágenes, la resolución de captura y la tasa de
-fotogramas por segundo. De esta forma podemos acceder a la imagen raw que arroja
-PlayStation Camera.
+Es necesario utilizar el paquete de ROS \textit{``gscam"} \cite{PackageGscam}.
+Se trata de un driver que permite utilizar el framework multimedia GStreamer
+para conectar cualquier dispositivo de vídeo, como en este caso PlayStation
+Camera. A este paquete solo es necesario especificarle las características de la
+cámara: de que dispositivo se trata, el formato de las imágenes, la resolución
+de captura y la tasa de fotogramas por segundo. De esta forma podemos acceder a
+la imagen raw que arroja PlayStation Camera.
 
 Posteriormente, se necesita convertir en dos imágenes separadas. Para ello se
-utiliza el paquete 'image\_proc'. Este paquete es muy similar al de
-'stereo\_image\_proc', sin embargo este trabaja solamente con una imagen.
-Contiene un nodo con el mismo nombre cuyo objetivo principal es el de rectificar
-la imagen. Sin embargo, el principal interés radica en la disponibilidad de una
-utilidad denominada 'image\_proc/crop\_decimate que recibe la imagen de la
-cámara y permite obtener una imagen nueva a partir de recortar y ajustar la
-imagen original según las necesidades. En este caso, se desea obtener una nueva
-imagen izquierda y derecha, cuya resolución será de 640x480.
+utiliza el paquete \textit{``image\_proc"}. Este paquete es muy similar al de
+\textit{``stereo\_image\_proc"}, sin embargo este trabaja solamente con una
+imagen. Contiene un nodo con el mismo nombre cuyo objetivo principal es el de
+rectificar la imagen. Aunque, el principal interés radica en la disponibilidad
+de una utilidad denominada \textit{``image\_proc/crop\_decimate"}
+\cite{PackageCropDecimate} que recibe la imagen de la cámara y permite obtener
+una imagen nueva a partir de recortar y ajustar la imagen original según las
+necesidades. En este caso, se desea obtener una nueva imagen izquierda y
+derecha, cuya resolución será de 640x480.
 
-Si se lanza la herramienta 'image\_view' es posible observar las dos nuevas
-imágenes correspondiente a lo que ve la cámara izquierda y la derecha a partir
-de la imagen original. Esto se puede observar en el launch correspondiente
-descrito aquí.% ~\ref{appendix:perenquen-stereo}.
+Si se lanza la herramienta \textit{``image\_view"} es posible observar las dos
+nuevas imágenes correspondiente a lo que ve la cámara izquierda y la derecha a
+partir de la imagen original. Esto se puede observar en el launch
+correspondiente descrito en el apéndice ~\ref{appendix:stereo}.
 
 %--------------------------------------
 \paragraph{Calibración} \hspace{0pt}
-% http://wiki.ros.org/camera_calibration
 
 En el caso anterior, para poder obtener las dos nuevas imágenes es necesario que
 las cámaras estén ya calibradas. La calibración es el proceso en el que se
@@ -118,18 +114,18 @@ método de calibración de Zhang, mediante un plano 2D previamente establecido.
   \label{fig:Calibracion}
 \end{wrapfigure}
 
-En ROS existe el paquete de 'camera\_caliration', el cuál permite calibrar de
-una manera muy sencilla cualquier cámara monocoluar o estéreo mediante el uso de
-un tablero de de damas o ajedrez como el de la figura ~\ref{fig:Calibracion}.
-Este paquete dispone de un nodo llamado 'cameracalibrator.py', una aplicación
-gráfica en la que se pueden visualizar las imágenes que captura PlayStation
-Camera. Enfocando el tablero hacia la cámara y enseñándole varias perspectivas,
-se consigue ajustar la calibración de la cámara.
+En ROS existe el paquete de \textit{``camera\_calibration"}
+\cite{PackageCalibration}, el cuál permite calibrar de una manera muy sencilla
+cualquier cámara monocular o estéreo mediante el uso de un tablero de de damas o
+ajedrez como el de la figura ~\ref{fig:Calibracion}. Este paquete dispone de un
+nodo llamado \textit{``cameracalibrator.py"}, una aplicación gráfica en la que
+se pueden visualizar las imágenes que captura PlayStation Camera. Enfocando el
+tablero hacia la cámara y enseñándole varias perspectivas, se consigue ajustar
+la calibración de la cámara.
 
-El paquete 'ps4eye' ya cuenta con un script de calibración que cuenta con
-algunos ajustes básicos como el número de cuadrados y el tamaño de cada uno en
-el tablero. Basta con ejecutar:
-~\ref{fig:Calibracion} 
+El paquete \textit{``ps4eye"} ya cuenta con un script de calibración que cuenta
+con algunos ajustes básicos como el número de cuadrados y el tamaño de cada uno
+en el tablero. Basta con ejecutar:
 \\
 \begin{lstlisting}
   $ roslaunch ps4eye calib.launch 
@@ -143,7 +139,7 @@ Que sería equivalente a ejecutar directamente:
 
 Tras el proceso de calibración, los resultados se pueden exportar para no tener
 que calibrar la cámara cada vez que se vaya a usar. Los archivos de calibración
-se cargados por son cargados en el launch. % ~\ref{appendix:perenquen-stereo}.
+se cargados por son cargados en el launch.
 
 %--------------------------------------
 \paragraph{Odometría} \hspace{0pt}
@@ -157,25 +153,134 @@ A partir de la silla Perenquén y PlayStation Camera se puede obtener:
 \end{itemize}
 
 Recordando lo que se vio en la sección anterior, la reconstrucción del mapa se
-consigue mediante el nodo 'rtabmap' del paquete 'rtabmap\_ros'. Este nodo está
-suscrito a un tópico 'odom' que contiene la odometría. Por lo que a partir de
-las tres odometrías anteriores, se necesita obtener una única odometría que
-tenga lo mejor de las tres, una tarea que realmente no es muy sencilla de
-realizar.
-
-% http://wiki.ros.org/laser_scan_matcher
-% http://wiki.ros.org/robot_localization#ekf_localization_node
-% http://wiki.ros.org/robot_pose_ekf
-
-Se hace uso de los siguientes nodos:
+consigue mediante el nodo \textit{``rtabmap"} del paquete
+\textit{``rtabmap\_ros"}. Este nodo está suscrito a un tópico \textit{``odom"}
+que contiene la odometría. Por lo que a partir de las tres odometrías
+anteriores, se necesita obtener una única odometría, combinación de las tres
+anteriores, una tarea para la que es necesario utilizar los siguientes paquetes:
 
 \begin{itemize}
-  \item \textbf{laser\_scan\_matcher:} permite integrar la odometría mecánica con la odometría de la odometría de cada láser.
-  \item \textbf{robot\_localization:} permite estimar el estado de la posición a partir de los sensores aplicando el Filtro de Kalman Extendido.
-  \item \textbf{robot\_pose\_ekf:} permite estimar la pose 3D del robot.
+  \item \textbf{laser\_scan\_matcher:} a partir de un láser, este paquete
+  permite integrar una odometría \cite{PackageScanMatcher}.
+  \item \textbf{robot\_localization:} permite estimar el estado de la posición a
+  partir de los sensores aplicando el Filtro de Kalman Extendido
+  \cite{PackageLocalization}.
+  \item \textbf{robot\_pose\_ekf:} permite estimar la pose 3D del robot a partir
+  de combinación entre la odometría mecánica y la odometría visual
+  \cite{PackagePoseEkf}.
 \end{itemize}
 
-El resultado final, es una odometría combinación de las anteriores.
+El resultado final, es una odometría combinación de las anteriores. A partir de
+aquí el procedimiento sería ponerlo en funcionamiento en \textit{``rtabmapviz"}.
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\subsection{Problemas encontrados en la implementación}
+A lo largo del proceso de implementación de los tres sistemas de odometría en la
+silla Perenquén surgieron algunos problemas que son dignos de mención debido a
+la peculiaridad de los mismos.
+
+%--------------------------------------
+\paragraph{Sincronización entre la odometría mecánica y la odometría visual}
+\hspace{0pt}
+
+Tras implementar los paquetes anteriores, la odometría resultante no funciona
+correctamente. El problema se encuentra en el paquete
+\textit{``robot\_pose\_ekf"} encargado de combinar la odometría visual con la
+odometría mecánica aplicada sobre los diferentes láseres. Por defecto, ambas
+odometrías no están sincronizadas produciendo unos resultados extraños.
+
+Para solucionar este problema, es necesario modificar parte del código fuente
+del paquete:
+\\
+\begin{lstlisting}{language=C++}
+OdomEstimationNode::OdomEstimationNode(){
+  // ...
+  pose_pub_ = 
+    nh_private.advertise<geometry_msgs::PoseWithCovarianceStamped>(
+      "pose_combined",
+      10
+    );
+  odom_pub_ = 
+    nh_private.advertise<nav_msgs::Odometry>(
+      "odom_combined",
+      10
+    );
+  odom_cam_pub_ = 
+    nh_private.advertise<nav_msgs::Odometry>(
+      "odom_cam_sync",
+      10
+    );
+
+  filter_stamp_ = Time::now();
+  if (camera_sync_used_)
+    camera_sync_sub_ = 
+      nh.subscribe(
+        camera_info_sync_,
+        10,
+        &OdomEstimationNode::camera_sync_Callback,
+        this
+      );
+  // ...
+}
+
+// ...
+void OdomEstimationNode::camera_sync_Callback(
+  const sensor_msgs::CameraInfo& cam_info
+) {
+
+  output_odom_.header.stamp.sec = 
+    cam_info.header.stamp.sec;
+  output_odom_.header.stamp.nsec = 
+    cam_info.header.stamp.nsec;
+  odom_cam_pub_.publish(output_odom_);
+
+  return;
+}
+// ...
+\end{lstlisting}
+
+Se definen tres publicadores: \textit{``pose\_pub\_"}, \textit{``odom\_pub\_"} y
+\textit{``odom\_cam\_pub\_"}, y un suscriptor: \textit{``camera\_sync\_sub"}.
+
+Se crea un método nuevo llamado \textit{``camera\_sync\_Callback"} que es
+invocado cuando se especifica el parámetro \textit{``sync"} en un launch. El
+método se encarga de sincronizar ambas odometrías, igualando el registro del
+tiempo (timestamp) de la odometría mecánica con la odometría visual de la
+cámara. Posteriormente se publica la odometría sincronizada a un nuevo tópico
+llamado \textit{``odom\_cam\_sync"}.
+
+%--------------------------------------
+\paragraph{Covarianza de la odometría mecánica y la odometría láser}
+\hspace{0pt}
+
+Una vez funcionando correctamente, surge un nuevo problema. No se puede utilizar
+\textit{``rtabmapviz"} para la reconstrucción del mapa.
+
+El problema esta vez está relacionado con los valores de covarianza de la
+odometría. La covarianza determina el margen de error, cuanto más pequeña, más
+fiable es. Se debe forzar a que la odometría final resultante tenga unos valores
+de covarianza por defecto, en caso de salirse de los márgenes establecidos
+previamente.
+
+Para solucionar este problema, es necesario modificar una vez más parte del
+código fuente del paquete:
+\\
+\begin{lstlisting}{language=C++}
+// ...
+  my_filter_.getEstimate(output_);
+  pose_pub_.publish(output_);
+  
+  output_odom_.pose = output_.pose;
+  output_odom_.header = output_.header;
+  output_odom_.child_frame_id = "base_link";
+
+  for (int i=0; i<=35; i+=7) {
+    if (output_odom_.pose.covariance[i] < 1e-9)
+      output_odom_.pose.covariance[i] = 1e-9;
+    output_odom_.twist.covariance[i] = 1;
+  }
+// ...
+\end{lstlisting}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \subsection{Resultados en interiores}
@@ -278,11 +383,11 @@ figura ~\ref{fig:Exteriores-Rviz}.
 
 Es posible mejorar la adquisición de las imágenes ajustando los parámetros que
 dispone la cámara. Para interactuar con la cámara, en GNU/Linux está la
-posibilidad de utilizar la herramienta 'v4l2-ctl' que permite interactuar con
-los dispositivos conectados como webcams. Por defecto, la luminosidad de las
-imágenes capturadas por la PlayStation Camera es muy limitada, es necesario
-modificar el parámetro de exposición. En una consola introducimos la siguiente
-orden:
+posibilidad de utilizar la herramienta \textit{``v4l2-ctl"} que permite
+interactuar con los dispositivos conectados como webcams. Por defecto, la
+luminosidad de las imágenes capturadas por la PlayStation Camera es muy
+limitada, es necesario modificar el parámetro de exposición. En una consola
+introducimos la siguiente orden:
 \\
 \begin{lstlisting}
   $ v4l2-ctl -d /dev/video0 -c exposure_auto=0
