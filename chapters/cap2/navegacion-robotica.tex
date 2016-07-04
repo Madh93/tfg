@@ -5,7 +5,6 @@
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 % \section{Navegación robótica}
 % \label{2:sec:4}
-% https://en.wikipedia.org/wiki/Mobile_robot_navigation
 La navegación robótica es la habilidad que permite a un robot móvil poder
 localizarse en el entorno y poder moverse libremente por el mismo, a partir del
 conocimiento extraído de las imágenes obtenidas del medio. El objetivo principal
@@ -14,7 +13,7 @@ punto de destino marcado previamente.
 
 En la robótica móvil es indispensable saber como moverse por el mundo, además de
 conocer que situaciones de riesgo se han de evitar: colisiones, superficies
-irregulares, zonas prohibidas, etc. 
+irregulares, zonas prohibidas, etc \cite{NavegacionRobotica}. 
 
 Es posible subdividir la navegación dependiendo de la zona de estudio: de
 interiores o de exteriores. En ambos casos las tecnologías pueden ser las
@@ -33,14 +32,12 @@ La navegación robótica se caracteriza por estos tres tópicos:
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \subsection{Localización}
-% http://www-math.mit.edu/~hajiagha/cars-fof.pdf
-% http://ieeexplore.ieee.org/xpl/login.jsp?tp=&arnumber=1241767&url=http%3A%2F%2Fieeexplore.ieee.org%2Fxpls%2Fabs_all.jsp%3Farnumber%3D1241767
-
 La localización es el primer tema a abordar en la navegación de un robot. El
 objetivo es dar respuesta al '¿dónde estoy?', a través de conocer la posición
 inicial, conocer la posición del punto de destino y autolocalizarse por el
 entorno. La localización se puede dividir en dos grupos principales: basada en
-puntos de referencias y basada en el análisis de las imágenes.
+puntos de referencias y basada en el análisis de las imágenes
+\cite{Localizacion}.
 
 La localización basada en puntos de referencias se aprovecha en los puntos de
 referencias que existen en el entorno y sobresalen de las imágenes de la escena
@@ -96,7 +93,7 @@ En la etapa de corrección, se introducen las medidas de los sensores. Con  la
 odometría y los sensores, se calcula la diferencia entre el valor esperado y el
 real, se obtiene la matriz de covarianza del sensor y se obtiene la Ganancia de
 Kalman (determina cuanto se debe corregir la estimación). Finalmente se corrigen
-los valores del vector de estado después de las nuevas observaciones.
+los valores del vector de estado después de las nuevas observaciones \cite{EKF}.
 
 Conforme pasa el tiempo crece la imprecisión, por lo que las etapas se repiten
 sucesivamente con el fin de reducir la imprecisión.
@@ -115,10 +112,12 @@ sucesivamente con el fin de reducir la imprecisión.
 % http://correll.cs.colorado.edu/?p=965111
 % http://ais.informatik.uni-freiburg.de/teaching/ss11/robotics/slides/18-robot-motion-planning.pdf
 % http://rabida.uhu.es/dspace/bitstream/handle/10272/5501/Nuevas_aportaciones_en_algoritmos_de_planificacion.pdf?sequence=2
+
 La búsqueda de caminos permite hallar el conjunto de movimientos que permite a
 un robot encontrar el camino más óptico hasta llegar a su objetivo, para no
 solamente llegar en el menor tiempo posible, sino también evitar por el camino
-los obstáculos que hagan peligrar el estado del robot o simplemente le retrasen.
+los obstáculos que hagan peligrar el estado del robot o simplemente le retrasen
+\cite{Planning}.
 
 El problema de la búsqueda de caminos ha sido ampliamente estudiado, existiendo
 múltiples algoritmos para solventar este problema. 
@@ -146,8 +145,8 @@ la complejidad del entornos y las restricciones cinemáticas que puede presentar
 un robot en la búsqueda de caminos, son los algoritmos de generación aleatoria,
 el más famoso es el RRT o 'Rapidly Exploring Random Trees', muy utilizados en la
 navegación autónoma. Este algoritmo se basa en la construcción al azar de un 
-árbol que va creciendode manera incremental mediante la captura de nuevas
-muestras del entorno.
+árbol que va creciendo de manera incremental mediante la captura de nuevas
+muestras del entorno \cite{Busqueda}.
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \subsection{Mapeo robótico}
@@ -160,7 +159,7 @@ robótica. Al igual que en la cartografía, un mapa representa toda la informaci
 conocida acerca de un entorno: dimensiones del entorno, orografía, localización
 de los obstáculos, etc. En robótica la utilización de un mapa es de gran
 utilidad ya que permite tener un registro histórico de aquellas lugares que ya
-ha visitado en el pasado, evitando así visitar zonas peligrosas o irrelevantes.
+ha visitado en el pasado, evitando así visitar zonas peligrosas o irrelevantes \cite{Mapping}.
 
 Los mapas se pueden representar de diferentes formas:
 
@@ -188,25 +187,25 @@ primera es la localización y la última lo construcción de un mapa, realmente 
 robot autónomo es capaz de construir un mapa del entorno comenzando desde una
 posición desconocida en el mismo.
 
-SLAM (Simultaneous Localization And Mapping) es una técnica que permite a un
-robot construir un mapa de un entorno desconocido a la vez que es capaz de
-localizarse en el mismo mediane sus sensores. 
+SLAM (Simultaneous Localization And Mapping) es un problema que surge de la
+necesidad construir un mapa de un entorno desconocido a la vez que es capaz de
+localizarse en el mismo mediante sus sensores. 
 
 Uno de los factores más importantes a tener en cuenta es la incertidumbre: no se
 conoce ni la posición ni el entorno, y no solo eso, los sensores no son
 perfectos y pueden arrojar resultados que no son acordes a la realidad,  por lo
 que la clave está en seguir un modelo probabilístico. Esta imprecisión puede
-corregirse con el paso del tiempo recorriendo continuadamente.
+corregirse con el paso del tiempo recorriendo continuadamente \cite{Slam}.
 
 % algo mas tecnico
 % loop closure
 
 SLAM toma como base el teorema de Bayes para dar solución del problema, mediante
-el uso de algritmos como el Filtro de Kalman Extendido o los Mapas de ocupación
+el uso de algoritmos como el Filtro de Kalman Extendido o los Mapas de ocupación
 de eldillas. Por otra parte, uno de los retos a los que se enfrenta SLAM es al
-'loop closure' (cierre de bucle). Se trata del problema de reconocer aquel lugar
+`loop closure` (cierre de bucle). Se trata del problema de reconocer aquel lugar
 del mapa que ya ha sido visitado previamente. El éxito del SLAM depende poder
-detectar esta situación
+detectar esta situación \cite{Bayes}.
 
 Los principales problemas con los que cuenta SLAM radican en la complejidad que
 se tiene en los entornos dinámicos donde muchos objetos en el mapa se mueven
