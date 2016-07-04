@@ -57,16 +57,17 @@ A partir del cálculo del mapa de disparidad a partir de las imágenes
 rectificadas, es posible obtener una odometría visual. Volviendo a recordar uno
 de los objetivos de ROS, este es un ejemplo de aquellas tareas que dificultan el
 desarrollo de un robot. Para solucionar este problema ROS cuenta con un paquete
-llamado 'stereo\_image\_proc'.
+llamado \textit{``stereo\_image\_proc"} \cite{PackageStereoImageProc}.
 
 Este paquete cuenta con un nodo que recibe el mismo nombre, el cuál tiene como
 objetivo procesar las imágenes estéreo que recibe. El nodo está suscrito a
-cuatro tópicos: 'left/image\_raw', 'left/camera\_info', 'right/image\_raw' y
-'right/camera\_info', los cuales corresponden con las imágenes en formato RAW
-sin comprimir de la cámara y los metadatos asociadas a ellas.
+cuatro tópicos: \textit{``left/image\_raw"}, \textit{``'left/camera\_info"},
+\textit{``right/image\_raw"} y \textit{``right/camera\_info"}, los cuales
+corresponden con las imágenes en formato RAW sin comprimir de la cámara y los
+metadatos asociadas a ellas.
 
 Con el nodo ROS Master ejecutándose en segundo plano, para ejecutar el nodo
-'stereo\_image\_proc' basta con introducir en una terminal:
+\textit{``stereo\_image\_proc"} basta con introducir en una terminal:
 \\
 \begin{lstlisting}
   $ rosrun stereo_image_proc stereo_image_proc __ns:=stereo
@@ -80,29 +81,30 @@ puntos son bajo demanda, por lo que si ningún nodo está suscrito a estos tópi
 no se utilizarán recursos para ejecutar las tareas.
 
 Para poder visualizar las imágenes ya procesadas, es posible utilizar una de las
-utilidades ya comentadas de RQt: 'rqt\_image\_view'. En una terminal se
-introduce lo siguiente:
+utilidades ya comentadas de RQt: \textit{``rqt\_image\_view"}
+\cite{PackageRqtImageView}. En una terminal se introduce lo siguiente:
 \\
 \begin{lstlisting}
   $ rosrun image_view disparity_view image:=/stereo/disparity
 \end{lstlisting}
 
-El nodo 'disparity\_view' está preparado para mostrar los tópicos
-correspondiente a los mensajes de tipo 'stereo\_msgs/DisparityImage' publicados
-por 'stereo\_image\_proc' en el tópico '/stereo/disparity'. De esta forma como
-argumento se selecciona dicho tópico. El resultado es una imagen de disparidad
-de color, en función del nivel de disparidad presente en un punto concreto de
-las imágenes, el tono de color sera diferente.
+El nodo \textit{``disparity\_view"} está preparado para mostrar los tópicos
+correspondiente a los mensajes de tipo \textit{``stereo\_msgs/DisparityImage"}
+publicados por \textit{``stereo\_image\_proc"} en el tópico
+\textit{``/stereo/disparity"}. De esta forma como argumento se selecciona dicho
+tópico. El resultado es una imagen de disparidad de color, en función del nivel
+de disparidad presente en un punto concreto de las imágenes, el tono de color
+sera diferente.
 
 %--------------------------------------
 \paragraph{Odometría} \hspace{0pt}
 
 Teniendo ya las imágenes izquierda y derecha rectificadas, con el paquete
-'rtabmap\_ros' es posible obtener la odometría visual de las imágenes. Este
-paquete está basado en RTAB-Map, herramienta basada en técnicas de SLAM para la
-detección de cierres de bucle en tiempo real. Cuenta con muchas características,
-por lo que lo mejor es explicar alguno de los principales de los nodos que
-dispone:
+\textit{``rtabmap\_ros"} \cite{PackageRtabmapRos}es posible obtener la odometría
+visual de las imágenes. Este paquete está basado en RTAB-Map, herramienta basada
+en técnicas de SLAM para la detección de cierres de bucle en tiempo real. Cuenta
+con muchas características, por lo que lo mejor es explicar alguno de los
+principales de los nodos que dispone:
 
 \begin{itemize}
   \item \textbf{rtabmap:} es el nodo principal del paquete, encargado de
@@ -119,57 +121,61 @@ dispone:
 \end{itemize}
 
 Para obtener la odometría, y viendo que las imágenes que tenemos son
-estereoscópicas, es necesario utilizar el nodo 'stereo\_odometry'. Este nodo
-está suscrito a los tópicos de las imágenes rectificadas y a sus metadatos, y el
-resultado es un tópico de tipo 'nav\_msgs/Odometry'.
+estereoscópicas, es necesario utilizar el nodo \textit{``stereo\_odometry"}.
+Este nodo está suscrito a los tópicos de las imágenes rectificadas y a sus
+metadatos, y el resultado es un tópico de tipo \textit{``nav\_msgs/Odometry"}.
 
 Con la odometría lista, faltaría la reconstrucción del mapa en 3D. El nodo
 principal es el encargado de esta tarea, a partir de la odometría y la
 transformación de coordenadas correspondiente, teniendo como resultado el tópico
-'rtabmap\_ros/MapData' con toda la información acerca del mapa.
+\textit{``rtabmap\_ros/MapData"} con toda la información acerca del mapa.
 
-Para lanzar el paquete 'rtabmap\_ros' es necesario introducir en una terminal:
+Para lanzar el paquete \textit{``rtabmap\_ros"} es necesario introducir en una
+terminal:
 \\
 \begin{lstlisting}
   $ roslaunch myps4eye carrito.launch
 \end{lstlisting}
 
-La utilidad 'roslaunch' permite cargar un archivo de este tipo. Se trata de un
-archivo basado en XML en el que se definen los paquetes, los nodos y las
-opciones que se desean lanzar, en vez de ser ejecutadas directamente desde
+La utilidad \textit{``roslaunch"} permite cargar un archivo de este tipo. Se
+trata de un archivo basado en XML en el que se definen los paquetes, los nodos y
+las opciones que se desean lanzar, en vez de ser ejecutadas directamente desde
 terminal. Se trata de la mejor opción cuando se desean lanzar muchos nodos a los
 cuáles hay además que modificar sus parámetros.
 
 Este launch puede encontrarse en el anexo ~\ref{appendix:carrito}, y en él se
-puede ver como se lanzan los nodos 'stereo\_odometry' y 'rtabmap' de
-'rtabmap\_ros', y de forma opcional también el nodo 'rtabmapviz' y otros
-paquetes de visualización como 'rviz' y el paquete 'tf'.
+puede ver como se lanzan los nodos \textit{``stereo\_odometry"} y
+\textit{``rtabmap"} de \textit{``'rtabmap\_ros"}, y de forma opcional también el
+nodo \textit{``rtabmapviz"} y otros paquetes de visualización como
+\textit{``rviz"} y el paquete \textit{``tf"}.
 
-El paquete 'tf' se encarga de determinar las coordenadas de transformación de
-cada uno de los elementos de un robot. El nodo 'static\_transform\_publisher' se
-encarga de realizar una transformación de coordenadas a partir de los ejes
-x,y,z.
+El paquete \textit{``tf"} \cite{PackageTf}se encarga de determinar las
+coordenadas de transformación de cada uno de los elementos de un robot. El nodo
+\textit{``static\_transform\_publisher"} se encarga de realizar una
+transformación de coordenadas a partir de los ejes x,y,z.
 
 %--------------------------------------
 \paragraph{Reconstrucción y visualización} \hspace{0pt}
 
-Con 'rtabmap' o 'rtabmapviz' se puede seleccionar dos modos de trabajo:
-construcción o localización. Para poder localizarse, es necesario tener un mapa
-construido previamente. Lanzando el launch anterior se puede observar en
-'rtabmapviz' como se va generando el mapa que las imágenes de PlayStation Camera
-van registrando en base a la odometría. La reconstrucción del mapa se puede
-realizar en tiempo real o con bolsas de datos con secuencias ya grabadas. En tal
-caso, solo bastaría con reproducir la bolsa para poder generar el mapa:
+Con \textit{``rtabmap"} o \textit{``rtabmapviz"} se puede seleccionar dos modos
+de trabajo: construcción o localización. Para poder localizarse, es necesario
+tener un mapa construido previamente. Lanzando el launch anterior se puede
+observar en \textit{``rtabmapviz"} como se va generando el mapa que las imágenes
+de PlayStation Camera van registrando en base a la odometría. La reconstrucción
+del mapa se puede realizar en tiempo real o con bolsas de datos con secuencias
+ya grabadas. En tal caso, solo bastaría con reproducir la bolsa para poder
+generar el mapa:
 \\
 \begin{lstlisting}
   $ rosbag play --clock carrito.bag
 \end{lstlisting}
 
 El mapa es generado mediante una nube de puntos. Además de la nube de puntos, se
-puede observar también como 'rtabmap' tiene presente el cálculo de cierres de
-bucle. De esta forma, si se utiliza una secuencia donde se produce se comienza
-desde un punto determinado, y se acaba volviendo al mismo punto, 'rtabmap' se
-encargará de detectar este cierre para poder optimizar el mapa.
+puede observar también como \textit{``rtabmap"} tiene presente el cálculo de
+cierres de bucle. De esta forma, si se utiliza una secuencia donde se produce se
+comienza desde un punto determinado, y se acaba volviendo al mismo punto,
+\textit{``rtabmap"} se encargará de detectar este cierre para poder optimizar el
+mapa.
 
 \begin{minipage}{\linewidth}
     \centering
@@ -178,17 +184,16 @@ encargará de detectar este cierre para poder optimizar el mapa.
     \label{fig:Ros-Diagram}
 \end{minipage}
 
-Tras haber construido el mapa, los resultados pueden visualizarse con 'rviz'. En
-la figura ~\ref{fig:Ros-Diagram} se puede observar como se ve la nube de puntos
-que representa al mapa 3D y la odometría del Robot. En este caso se dio dos
-vueltas alrededor de la misma estructura.
+Tras haber construido el mapa, los resultados pueden visualizarse con
+\textit{``rviz"}. En la figura ~\ref{fig:Ros-Diagram} se puede observar como se
+ve la nube de puntos que representa al mapa 3D y la odometría del Robot. En este
+caso se dio dos vueltas alrededor de la misma estructura.
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \subsection{Ajuste de parámetros}
-% choosing good sereo parameters
-El paquete 'stereo\_image\_proc' cuenta con una serie de parámetros que pueden
-modificarse de manera dinámica utilizando la herramienta 'rqt\_reconfigure'. Para
-lanzarlo se escribe en una terminal:
+El paquete \textit{``stereo\_image\_proc"} cuenta con una serie de parámetros
+que pueden modificarse de manera dinámica utilizando la herramienta
+\textit{``rqt\_reconfigure"}. Para lanzarlo se escribe en una terminal:
 \\
 \begin{lstlisting}
   $ rosrun rqt_reconfigure rqt_reconfigure
@@ -219,7 +224,6 @@ Gracias a esto podemos obtener mejores resultados. Aquí una pequeña descripci�
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \subsection{Conclusiones}
-
 Tras obtener el mapa y la odometría, el resultado no dista demasiado de la
 realidad. Sin embargo hay que tener en cuenta de que se ha trabajado en un
 entorno con las condiciones lumínicas necesarias y donde el espacio recorrido ha
