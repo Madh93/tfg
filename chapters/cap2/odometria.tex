@@ -24,10 +24,9 @@ hablar de diferentes tipos.
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \subsection{Odometría mecánica}
-% https://es.wikipedia.org/wiki/Odometr%C3%ADa
 La odometría mecánica se base en el estudio del giro de las ruedas de un robot.
 Conociendo el radio de las ruedas, mediante las revoluciones de las mismas es
-posible determinar con sencillas ecuaciones el avance del robot.
+posible determinar con sencillas ecuaciones el avance del robot \cite{OdometriaMecanica}.
 
 Sin embargo esta sencilla solución tiene varios inconvenientes a tratar:
 
@@ -45,6 +44,9 @@ Sin embargo esta sencilla solución tiene varios inconvenientes a tratar:
   obtener la odometría.
 \end{itemize}
 
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\subsection{Odometría láser}
+
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \subsection{Odometría visual}
@@ -53,8 +55,8 @@ La odometría visual permite estimar el movimiento y la posición de un robot
 móvil a partir de las imágenes capturadas por una o más cámaras en el propio
 sistema. De forma sencilla, si se comparan las imágenes obtenidas en un instante
 t1 respecto a otras imágenes obtenidas en un instante t2, se puede calcular la
-diferencia existente en un punto determinado de la imagen. Si dicho punto está
-más cerca, quiere decir que el robot ha avanzado.
+diferencia existente en un punto determinado de la imagen. Si dicho punto es más
+cercano, quiere decir que el robot ha avanzado.
 
 \begin{wrapfigure}{l}{0.5\textwidth}
   \vspace{-20pt}
@@ -68,27 +70,22 @@ más cerca, quiere decir que el robot ha avanzado.
 \end{wrapfigure}
 
 Pero a partir de las imágenes ¿cómo se puede determinar la distancia de un
-objeto respecto al robot? En función del tamaño del objeto en la escena. Si en
-la nueva escena las dimensiones espaciales de un objeto son mayores que la
-anterior escena, quiere decir que se ha avanzado, y viceversa. En un sistema
-estereoscópico se comparan la diferencia respecto al eje x (disparidad) entre
-la imagen izquierda y derecha. La distancia de un objeto es inversamente
+objeto respecto al robot? En función del tamaño del objeto en la escena. En un
+sistema estereoscópico se comparan la diferencia respecto al eje x (disparidad)
+entre la imagen izquierda y derecha. La distancia de un objeto es inversamente
 proporcional a la disparidad presente, es decir, si un objeto presenta una gran
 disparidad en la escena significa que se encuentra cerca. Cuanto más lejano esté
-el objeto la disparidad será menor.
+el objeto la disparidad será menor \cite{OdometriaVisual}.
 
-
-% \begin{minipage}{\linewidth}
-%     \centering
-%     \includegraphics[width=0.5\textwidth]{images/cap2/OdometriaVisual.eps}
-%     \captionof{figure}{Disparidad en odometría visual}
-%     \label{fig:OdometriaVisual}
-% \end{minipage}
+Por otra parte, en los sistemas con una sóla cámara, también es posible hallar
+la distancia. La cámara debe estar orientada hacia el suelo en un ángulo
+determinado y a una altura conocida, a partir de la tangente se puede calcular
+la distancia.
 
 La odometría visual es la alternativa utilizada en robots móviles que no cuentan
-con ruedas: androides, robots voladores, etc. Aunque también es bastante
-frecuente encontrar la odometría visual junto con la odometría mecánica como
-apoyo.
+con ruedas: androides, robots voladores, etc. y en los sistemas que no pueden
+permitirse el uso de láseres. Aunque es bastante frecuente encontrar la
+odometría visual junto a cualquiera de las otras odometrías como apoyo.
 
 La odometría visual cuenta con los siguientes inconvenientes a tener en cuenta:
 
@@ -100,16 +97,16 @@ La odometría visual cuenta con los siguientes inconvenientes a tener en cuenta:
   \item \textbf{El entorno:} las cámaras son muy sensibles a los cambios bruscos
   de las condiciones del entorno como la luminosidad. También hay que tener en
   cuenta que las escenas son dinámicas, por lo que muchos objetos aparecen y
-  desparecen dela escena o se mueven con mucha frecuencia en la escena, y esto
+  desparecen de la escena o se mueven con mucha frecuencia en la escena, y esto
   puede suponer un importante problema.
 \end{itemize}
     
-Tanto la odometría mecánica como la visual presentan varios problemas para
+Tanto la odometría mecánica, láser y visual presentan varios problemas para
 estimar la posición y orientación del robot, sin embargo, combinando ambas se
 pueden conseguir resultados más consistentes. Por ejemplo: en aquellos casos
 donde la odometría mecánica no coincide con los datos visuales debido a una
 superficie inconsistente, se confía en la odometría visual. Por otra parte,
-cuando las condiciones lumínicas no son adecuadas, se confía en la odometría
-mecánica.
+cuando las condiciones lumínicas no son adecuadas en espacios cerrados, se
+confía en la odometría láser o mecánica.
 
 %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
