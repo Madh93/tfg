@@ -7,28 +7,26 @@
 % \label{4:sec:1}
 
 Como se pudo observar en el capítulo ~\ref{chapter:recursos}, el desarrollo de
-este trabajo se realiza en base a ROS, concretamente la versión 'Indigo'. Es
-necesario instalar y configurar un directorio de trabajo para ROS donde estará
-alojado el paquete con el código fuente del proyecto.
+este trabajo se realiza en base a ROS, concretamente la versión
+\textit{``Indigo"}. Es necesario instalar y configurar un directorio de trabajo
+para ROS donde estará alojado el paquete con el código fuente del proyecto.
 
 El sistema operativo que se ha utilizado ha sido Ubuntu 14.04 LTS (64-bit), una
 distribución GNU/Linux muy sencilla de utilizar para la que se distribuyen los
-paquetes que conforman ROS. Cabe mencionar, que todos los pasos que se
-describen a continuación son perfectamente válidos para versiones más recientes
-de Ubuntu o distribuciones derivadas, solo es necesario modificar algunos
-detalles como la versión o el nombre de la distribución. 
+paquetes que conforman ROS \cite{Ubuntu}. Cabe mencionar, que todos los pasos
+que se describen a continuación son perfectamente válidos para versiones más
+recientes de Ubuntu o distribuciones derivadas, solo es necesario modificar
+algunos detalles como la versión o el nombre de la distribución. 
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \subsection{Instalación y configuración de ROS}
-% http://wiki.ros.org/es/hydro/Installation/Ubuntu
-% http://wiki.ros.org/ROS/Tutorials
 
 %--------------------------------------
 \paragraph{Instalar ROS} \hspace{0pt}
 
 ROS no se encuentra en los paquetes oficiales de Ubuntu, es necesario añadir un
-repositorio externo, el oficial de ROS. Para ello se introduce lo siguiente en
-una terminal:
+repositorio externo, el oficial de ROS \cite{ROSInstall}. Para ello se introduce
+lo siguiente en una terminal:
 \\
 \begin{lstlisting}
   $ sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
@@ -56,10 +54,10 @@ paquete en el futuro. Para ello en la terminal instalamos el siguiente paquete:
   $ sudo apt-get install ros-indigo-desktop-full
 \end{lstlisting}
 
-El paquete 'ros-indigo-desktop-full' viene con muchas de las herramientas que se
-han usado en el proyecto: Rviz, Rtabmap, Rqt, etc. Aunque no incluye la
-herramienta 'rosinstall' la cual permite instalar paquetes de ROS
-independientemente del sistema:
+El paquete \textit{``ros-indigo-desktop-full"} viene con muchas de las
+herramientas que se han usado en el proyecto: Rviz, Rtabmap, Rqt, etc. Aunque no
+incluye la herramienta \textit{``rosinstall"} la cual permite instalar paquetes
+de ROS independientemente del sistema:
 \\
 \begin{lstlisting}
   $ sudo apt-get install python-rosinstall
@@ -68,10 +66,10 @@ independientemente del sistema:
 %--------------------------------------
 \paragraph{Configuración de ROS} \hspace{0pt}
 
-Antes de poder utilizar ROS es necesario configurar 'rosdep'. Esta herramienta
-permite instalar fácilmente dependencias del sistema que surgen cuando se
-requiere compilar el código fuente de un paquete ROS. Es necesario introducir en
-una terminal lo siguiente:
+Antes de poder utilizar ROS es necesario configurar \textit{``rosdep"}. Esta
+herramienta permite instalar fácilmente dependencias del sistema que surgen
+cuando se requiere compilar el código fuente de un paquete ROS. Es necesario
+introducir en una terminal lo siguiente:
 \\
 \begin{lstlisting}
   $ sudo rosdep init
@@ -86,11 +84,11 @@ se utiliza Bash como shell basta con introducir lo siguiente:
   $ source ~/.bashrc
 \end{lstlisting}
 
-En caso de utilizar otra shell por defecto (por ejemplo Zsh), en 
-'/opt/ros/indigo' también se cuenta con el script equivalente, cuyo contenido es
-necesario volcar en el archivo de configuración de la shell. Con esto último,
-todas las variables de entorno se cargan automáticamente al abrir una nueva
-shell.
+En caso de utilizar otra shell por defecto (por ejemplo Zsh), en
+\textit{``/opt/ros/indigo"} también se cuenta con el script equivalente, cuyo
+contenido es necesario volcar en el archivo de configuración de la shell. Con
+esto último, todas las variables de entorno se cargan automáticamente al abrir
+una nueva shell.
 
 %--------------------------------------
 \paragraph{Crear un workspace} \hspace{0pt}
@@ -137,10 +135,10 @@ necesaria escribir en una terminal lo siguiente:
   $ catkin_create_pkg myps4eye
 \end{lstlisting}
 
-En este caso se ha creado un paquete llamado 'myps4eye'. Con este último comando
-se creará una carpeta nueva con los archivos de configuración necesarios para
-compilar el paquete. Si se modifica el código fuente, en un paquete del
-workspace, es necesario compilarlo de la siguiente forma:
+En este caso se ha creado un paquete llamado \textit{``myps4eye"}. Con este
+último comando se creará una carpeta nueva con los archivos de configuración
+necesarios para compilar el paquete. Si se modifica el código fuente, en un
+paquete del workspace, es necesario compilarlo de la siguiente forma:
 \\
 \begin{lstlisting}
   $ cd ~/ROS/ws
@@ -178,25 +176,21 @@ Buscar paquetes:
   $ rospack find [paquete]
 \end{lstlisting}
 
-
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \subsection{Instalación y configuración de PlayStation Camera}
-% https://github.com/longjie/ps4eye
-
 La PlayStation Camera solamente tiene soporte oficial para la consola
 PlayStation 4 de Sony. Sin embargo varios desarrolladores de forma independiente
 han trabajado en hacer funcionar la cámara en PC. Por otra parte también se ha
 desarrollado un paquete no oficial para ROS que permite la utilización de la
-cámara como si de una cámara estéreo más se tratase.
+cámara como si de una cámara estéreo más se tratase \cite{PS4Eye}.
 
 %--------------------------------------
 \paragraph{Requisitos} \hspace{0pt}
 
-% http://ps4eye.tumblr.com/
-En primer lugar se necesita el modelo CUH-ZEY1J de Playstation Camera (hasta el
+En primer lugar se necesita el modelo CUH-ZEY1J de PlayStation Camera (hasta el
 momento el único modelo disponible en el mundo). La principal dificultad con la
 que cuenta es que es necesario alterar el cable de la cámara para modificar el
-puerto propietario por un puerto USB 3.0 estándar.
+puerto propietario por un puerto USB 3.0 estándar \cite{PS4EyeHack}.
 
 En segundo lugar es necesario utilizar una versión de kernel superior a la
 3.17.3. Para descargar esta versión concreta podemos realizar las siguientes
@@ -249,9 +243,9 @@ paquete:
   $ roslaunch ps4eye stereo.launch DEVICE:=/dev/video0 viewer:=true
 \end{lstlisting}
 
-En este caso se supone que la cámara está en '/dev/video0', aunque si se utiliz
-un portátil u otra cámara es necesario que corresponda con otro dispositivo. Se
-debería visualizar la cámara izquierda y la cámara derecha junto con una imagen
-de disparidad generada a partir de ambas imágenes.
+En este caso se supone que la cámara está en \textit{``/dev/video0"}, aunque si
+se utiliza un portátil u otra cámara es necesario que corresponda con otro
+dispositivo. Se debería visualizar la cámara izquierda y la cámara derecha junto
+con una imagen de disparidad generada a partir de ambas imágenes.
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
