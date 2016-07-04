@@ -5,8 +5,6 @@
 %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 % \section{Visión estéreo}
 % \label{2:sec:2}
-% http://vision.deis.unibo.it/~smatt/Seminars/StereoVision.pdf
-% http://www.cesfelipesegundo.com/revista/articulos2011/Guerrero,%20J.M.pdf
 
 La visión estereoscópica o visión estéreo, es la técnica capaz de extraer
 información tridimensional (profundidad) a partir de la posición relativa de un
@@ -28,7 +26,7 @@ De manera más formal, se obtiene que para cada imagen capturada por las
 cámaras, un objeto está en puntos diferentes del plano. Esta triangulación
 entre el punto P y Q y el origen de referencia, provocan una sensación de
 profundidad. Mediante el sistema tradicional de una sola cámara, este punto
-estaría en las mismas coordenadas.
+estaría en las mismas coordenadas \cite{VisionEstereo}.
 
 \begin{figure}[!th]
   \begin{center}
@@ -40,12 +38,10 @@ estaría en las mismas coordenadas.
 
 Con estos datos, se pueden poner en correspondencia cada punto de ambas
 imágenes, para obtener una imagen de disparidad (más información en la sección 
-2.2.4).
+~\ref{subsec:Disparidad}).
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \subsection{Geometría de las cámaras}
-% https://en.wikipedia.org/wiki/Parallax
-% http://www.cesfelipesegundo.com/revista/articulos2011/Guerrero,%20J.M.pdf
 En función de la posición relativa de las cámaras entre sí, se pueden apreciar
 dos métodos principales:
 
@@ -77,11 +73,10 @@ dos métodos principales:
   \end{minipage}
 \end{itemize}
 
-% http://vfxio.com/PDFs/Parallel_vs_Converged.pdf
 La visión cruzada tiene la desventaja de distorsionar las imágenes capturadas.
-En la figura 2.4 se puede observar este efecto al fotografiar un muro de
-ladrillos. Sin embargo, dependiendo del tipo de escena que se capture, esta
-distorsión puede suponer un problema o no.
+En la figura ~\ref{fig:VisionCruzadaMuro} se puede observar este efecto al
+fotografiar un muro de ladrillos. Sin embargo, dependiendo del tipo de escena
+que se capture, esta distorsión puede suponer un problema o no \cite{Geometria}.
 
 \begin{figure}[!th]
   \begin{center}
@@ -91,9 +86,11 @@ distorsión puede suponer un problema o no.
   \end{center}
 \end{figure}
 
-La visión paralela por su parte, no distorsiona las imágenes capturadas, pero
-también cuenta con otra serie de problemas. A pesar de ello, la visión paralela
-suele ser la más utilizada para la visión estéreo.
+
+% Ampliar o quitar
+% La visión paralela por su parte, no distorsiona las imágenes capturadas, pero
+% también cuenta con otra serie de problemas. A pesar de ello, la visión paralela
+% suele ser la más utilizada para la visión estéreo.
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 % \subsection{Rectificación}
@@ -101,9 +98,10 @@ suele ser la más utilizada para la visión estéreo.
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \subsection{Disparidad}
+\label{subsec:Disparidad}
 % http://es.slideshare.net/RicardoSnchezCastill/vision-artificial-49264591
 % http://stackoverflow.com/questions/17607312/difference-between-disparity-map-and-disparity-image-in-stereo-matching
-% http://iie.fing.edu.uy/publicaciones/2005/Lec05a/Lec05a.pdf
+
 La disparidad de dos imágenes establece la correspondencia entre los píxeles o
 características que existen entre ambas en el eje x para obtener la profundidad
 de la escena. Con esto se consigue estimar la profundidad de cada uno de los
@@ -117,10 +115,11 @@ los objetos con menor disparidad (más lejanos) son representados con un tono m�
 oscuro. Aunque no es extraño encontrar una imagen térmica en vez de monocroma.
 
 Con el único requisito de que las imágenes estén rectificadas, el algoritmo para
-calcular la disparidad consiste de forma general en obtener la profundidad para
-todos los píxeles de las imágenes estéreo. De esta forma, para todos los puntos
-de cada imagen se busca la pareja de puntos correspondientes que representan la
-proyección del mismo punto del espacio.
+calcular la disparidad consiste de forma general en buscar cada punto singular
+de la imagen izquierda en la imagen derecha, para observa en que nuevo píxel se
+encuentra. A partir de esta información, es posible calcular la profundidad
+buscando para cada punto de las imágenes la pareja de puntos correspondiente que
+representan la proyección del mismo punto del espacio \cite{CalculoDisparidad}.
 
 El mapa de disparidad es uno de los elementos básicos para la reconstrucción
 tridimensional de los objetos de una escenas a partir de varias capturas.
@@ -132,13 +131,6 @@ tridimensional de los objetos de una escenas a partir de varias capturas.
     \label{fig:MapaDisparidad}
   \end{center}
 \end{figure}
-
-
-% Disparidad....
-
-% http://www.cesfelipesegundo.com/revista/articulos2011/Guerrero,%20J.M.pdf
-% http://dmi.uib.es/~abasolo/cursorealidad/paco/Estereoscopia.html
-
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 % \subsection{Reconstrucción 3D}
