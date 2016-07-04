@@ -5,35 +5,26 @@
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 % \section{ROS}
 % \label{3:sec:3}
-
-% http://erlerobotics.com/blog/ros-introduction-es/
-% https://www.clearpathrobotics.com/assets/guides/ros/Intro%20to%20the%20Robot%20Operating%20System.html
-% http://www.ros.org/about-ros/
-
-% http://www.ros.org/about-ros/
 ROS (Robot Operating System) es un framework de código abierto diseñado para
 realizar software robótico. Entre las principales funcionalidades destacan una
 abstracción del hardware, el control de dispositivos, paso de mensajes entre los
 procesos y una gran variedad de herramientas y librerías. Por otra parte ROS
 cuenta con un sistema de paquetes, que permite instalar, compilar e incluso
-modificar paquetes externos creados por la comunidad.
+modificar paquetes externos creados por la comunidad \cite{ROSAbout}.
 
-% http://erlerobotics.com/blog/ros-introduction-es/
-El objetivo principal es permitir la abstracción y la simplificación de  muchas de
-las tareas que conllevan construir un robot de forma independiente, uno de los
-principales problemas que llevan a condenar al fracaso este tipo de proyectos,
-mediante el desarrollo de software colaborativo. En definitiva, ROS promueve la
-reutilización de código para evitar tener que reinventar la rueda a los
-desarrolladores y científicos en cada nuevo proyecto.
+El objetivo principal es permitir la abstracción y la simplificación de  muchas
+de las tareas que conllevan construir un robot de forma independiente, uno de
+los principales problemas que llevan a condenar al fracaso este tipo de
+proyectos, mediante el desarrollo de software colaborativo. En definitiva, ROS
+promueve la reutilización de código para evitar tener que reinventar la rueda a
+los desarrolladores y científicos en cada nuevo proyecto \cite{ROSIntro}.
 
-% http://www.ros.org/about-ros/
 De esta forma, a modo de ejemplo un grupo de desarrolladores puede trabajar e
 investigar en la construcción de mapas, mientras que en otra parte del mundo,
 otro grupo de expertos puede estar especializado en la localización con el uso
 de mapas. Ambos comparten el conocimiento entre ambos y con el resto de la
 comunidad para conseguir mejores resultados en conjunto.
 
-% https://en.wikipedia.org/wiki/Robot_Operating_System
 El software de ROS se distribuye de la siguiente manera:
 
 \begin{itemize}
@@ -46,9 +37,8 @@ Tanto las herramientas como las librerías del cliente de ROS están escritas
 principalmente en C++ y Python. Las librerías principales de ROS siguen los
 principios Unix-like ya que la mayoría de dependencias son proyectos de código
 abierto, permitiendo que muchas distribuciones distribuyan las librerías y
-paquetes de ROS.
+paquetes de ROS \cite{ROSWiki}.
 
-% http://www.ros.org/is-ros-for-me/
 ROS ha sido diseñado para ser un sistema distribuido lo más modular posible,
 permitiendo que los usuarios puedan utilizar lo justo y necesario, desde los
 paquetes del núcleo y la comunidad, hasta utilizar sus propios paquetes
@@ -65,12 +55,10 @@ personas participan en las listas de correos, y aproximadamente 6000 personas
 colaboran con la documentación oficial y la comunidad de preguntas y respuestas.
 Esto implica que más de 30 páginas de la documentación se editen cada día y que
 hasta la fecha se hayan abierto más de 13000 preguntas con un porcentaje de
-respuesta alto.
+respuesta alto \cite{ROSIsforme}.
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \subsection{Historia}
-
-% http://www.ros.org/about-ros/
 El origen de ROS se remonta a 2007, cuando Willow Garage pensó en la necesidad
 de de diseñar un sistema más flexible y robusto para el desarrollo de robots
 después de que en en el laboratorio de inteligencia artificial de la universidad
@@ -78,15 +66,14 @@ de Standford es estuvieran realizando diferentes proyectos que integraban el uso
 de robots e inteligencia artificial como STandard AI Robot (STAIR) y Personal
 Robots (PR).
 
-% https://en.wikipedia.org/wiki/Robot_Operating_System
-Varios investigadores contribuyeron y dieorn ideas para lo que sería la base
+Varios investigadores contribuyeron y dieron ideas para lo que sería la base
 fundamental del servicio de paquetes de ROS que existe actualmente. En apenas un
-año, el proyecto paso a desarollarse por la institución de investigación
+año, el proyecto paso a desarrollarse por la institución de investigación
 robótica Willow Garage, junto con la colaboración de más de veinte
 instituciones. Mientras tanto, el uso de una licencia permisiva de código
 abierto permitió que de forma gradual ROS se empezará a implementar en
 diferentes comunidades de desarrollo robótico. Finalmente, en 2013, ROS se
-transferió a la Open Source Robotics Fundation.
+transfirió a la Open Source Robotics Fundation.
 
 Y hasta la fecha se han lanzado las siguientes versiones:
 
@@ -94,8 +81,6 @@ Y hasta la fecha se han lanzado las siguientes versiones:
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \subsection{Infraestructura de ROS}
-% http://www.ros.org/core-components/
-% http://erlerobotics.com/blog/ros-introduction-es/#concepts
 Uno de los elementos más básicos en la implementación de una aplicación robot es
 el sistema de comunicación. ROS ofrece un sistema de mensajes entre los nodos
 del sistema mediante un mecanismo que usa el patrón de publicación/suscripción.
@@ -107,7 +92,6 @@ evitar ambigüedad a la hora de comunicarse entre sí. Los nodos pueden ser
 escritos en los diferentes lenguajes de las librerías del cliente de ROS (C++ o
 Python por ejemplo).
 
-% https://msdn.microsoft.com/es-es/library/ms152567(v=sql.120).aspx
 Por otra parte, el patrón publicación/suscripción permite pasar información de
 una manera sencilla y segura entre los nodos. En este patrón, existen dos
 actores:
@@ -121,7 +105,7 @@ Una aproximación real de este patrón puede ser el editor de una revista. El
 editor (publicador) escribe un número nuevo cada mes. Este número se distribuye
 directamente o a través de un distribuidor. En último lugar, tenemos a una
 persona suscrita a esa revista (suscriptor), a quien le llega cada mes un nuevo
-número de la revista.
+número de la revista \cite{PublisherSuscriber}.
 
 La información que se intercambian los nodos (en el ejemplo anterior los
 ejemplares de la revista) se conoce como mensaje. Un mensaje es una estructura
@@ -133,11 +117,12 @@ transmitirse por un canal, en este caso denominado tópico. Los tópicos utiliza
 un nombre para describir el contenido de los mensajes, por lo que, un tópico
 transmite un cierto tipo de datos. Si un nodo desea recibir cierto tipo de
 datos, se debe suscribir al tópico apropiado del nodo. Por ejemplo una cámara y
-un visor, ambos comparten el tópico 'imagen', cada vez que la cámara captura una
-imagen el resultado se publica (publicador), si el visor espera recibir una
-imagen y está suscrito al tópico 'imagen' de la cámara, esta se transmitirá. Un
-nodo puede publicar o suscribirse a múltiples tópicos, además, pueden haber
-muchos publicadores concurrentemente para un sólo tópico.
+un visor, ambos comparten el tópico \textit{``imagen"}, cada vez que la cámara
+captura una imagen el resultado se publica (publicador), si el visor espera
+recibir una imagen y está suscrito al tópico \textit{``imagen"} de la cámara,
+esta se transmitirá. Un nodo puede publicar o suscribirse a múltiples tópicos,
+además, pueden haber muchos publicadores concurrentemente para un sólo tópico
+\cite{ROSConceptos}.
 
 Una de las mayores ventajas del sistema de publicación/suscripción es que es
 anónimo y asíncrono, por lo que los mensajes que se transmiten no se modifican.
@@ -147,54 +132,51 @@ realizar el transporte de los mensajes en un un único sentido. Para ello, ROS
 ofrece lo que se llaman servicios. La petición y respuesta se definen mediante
 una estructura de mensajes, una para la petición y otra para la respuesta.
 
-% http://answers.ros.org/question/11834/when-should-i-use-topics-vs-services-vs-actionlib-actions-vs-dynamic_reconfigure/
 Es necesario conocer, que los tópicos se usan cuando se desea transmitir
 mensajes que continuamente envían información (datos de los sensores, estado del
 robot, imágenes capturadas, etc.), mientras que los servicios están pensados
 para realizar una petición y recibir una respuesta bajo demanda en ocasiones
-concretas.
+concretas \cite{ROSCommunication}.
 
-% SERVIDOR D EPARAMETROS
 Por otra parte, ROS utiliza lo que se conoce como servidor de parámetros, un
 diccionario compartido de clave-valor y accesible desde la red. Los nodos usan
 el servidor para almacenar y recibir parámetros en tiempo de ejecución, y de
 esta forma modificar el funcionamiento del sistema.
 
 ROS cuenta con las herramientas para monitorizar y controlar el estado de los
-nodos, tópicos, servicios y parámetros mediante 'rosnode', 'rostopic',
-'rosservice' y 'rosparam'. Para que el sistema funcione correctamente, es
-necesario que este activo el ROS Master. Se trata del nodo maestro, sin él los
-nodos no podrían encontrar al resto de nodos, tampoco se podría intercambiar
-mensajes o invocar servicios.
+nodos, tópicos, servicios y parámetros mediante \textit{``rosnode"},
+\textit{``rostopic"}, \textit{``rosservice"} y \textit{``rosparam"}. Para que el
+sistema funcione correctamente, es necesario que este activo el ROS Master. Se
+trata del nodo maestro, sin él los nodos no podrían encontrar al resto de nodos,
+tampoco se podría intercambiar mensajes o invocar servicios.
 
-En la figura ~\ref{fig:Ros-Diagram} se puede observar una implementación de como
-captura imágenes un robot. Por un lado existen tres nodos: el nodo de la cámara
-que recibe de la cámara, y los nodos de procesamiento de las imágenes y la
-visualización de las mismas. Estos dos nodos están suscritos al tópico
-'/image\_data' que publica el nodo de la cámara. Cada vez que la cámara registra
-una nueva imagen se transmite a los otros nodos.
+En la figura ~\ref{fig:Ros-Diagram-Example} se puede observar una implementación
+de como captura imágenes un robot. Por un lado existen tres nodos: el nodo de la
+cámara que recibe de la cámara, y los nodos de procesamiento de las imágenes y
+la visualización de las mismas. Estos dos nodos están suscritos al tópico
+\textit{``/image\_data"} que publica el nodo de la cámara. Cada vez que la
+cámara registra una nueva imagen se transmite a los otros nodos.
 
 \begin{minipage}{\linewidth}
     \centering
     \includegraphics[width=0.8\textwidth]{images/cap3/RosDiagrama.eps}
     \captionof{figure}{Ejemplo de captura de imágenes}
-    \label{fig:Ros-Diagram}
+    \label{fig:Ros-Diagram-Example}
 \end{minipage}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \subsection{Características}
-% http://www.ros.org/core-components/
-
 ROS proporciona un gran número de librerías para resolver los problemas comunes
 en el desarrollo robótico con el objetivo de simplificar el la dura carga de
-tiempo y trabajo que eso supone. Estas son algunas de las principales
-características:
+tiempo y trabajo que eso supone \cite{ROSInfraestructura}. Estas son algunas de
+las principales características:
 
 \begin{itemize}
   \item \textbf{Mensajes estándar:} existe una gran variedad de mensajes básicos
   ya definidos para la mayoría de tareas del robot como la pose, coordenadas de
   transformación, sensores, odometría, mapas, etc. 
-  \item \textbf{Geometría del robot:} la librería 'tf' se encarga de detectar
+  \item \textbf{Geometría del robot:} la librería \textit{``tf"} se encarga de
+  detectar
   las diferentes partes de un robot frente al resto de ellas, siendo posible
   coordinar y transformar más de cien grados de libertad.
   \item \textbf{Lenguaje de descripción:} ROS permite describir las
@@ -214,7 +196,6 @@ características:
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \subsection{Herramientas}
-% http://www.ros.org/core-components/
 Una de las características más importantes de ROS está en las herramientas de
 desarrollo disponibles. Existe una gran variedad de software de todo tipo:
 visualización, depuración, resumen del estado, etc. Gracias al mecanismo de
@@ -229,7 +210,6 @@ cualquier otro caso existe una importante variedad de herramientas con interfaz
 gráfica que extienden la funcionalidad de estos comandos. A continuación se
 pueden ver algunos de ellos.
 
-% http://introlab.github.io/rtabmap/
 %--------------------------------------
 \paragraph{RTAB-Map ROS} \hspace{0pt}
 
@@ -238,7 +218,7 @@ es un aprovechamiento de las técnicas de SLAM capaz de detectar los cierres de
 bucles en la navegación de un robot a partir de la apariencia de las imágenes,
 los cuales son registrados en un grafo que representa el mapa. Por otra parte,
 permite la reconstrucción tridimensional del mapa, el cuál es representado como
-una nube de puntos. 
+una nube de puntos \cite{RTABMap}. 
 
 ROS cuenta con RTABMapviz para visualizar de forma gráfica el resultado de la
 detección de los cierres de bucle y la generación en vivo del mapa
@@ -253,11 +233,11 @@ sensores láser. RViz también puede visualizar diferentes mensajes comunes de R
 como barridos láser, nube de puntos, las imágenes de las cámaras o también con
 la posibilidad de mostrar el mapa del entorno (previamente almacenado).
 
-RViz también puede interactuar con la información de la biblioteca 'tf' para
-mostrar toda la información del sistema de coordenadas de los sensores desde
-diferentes perspectivas. Entre las ventajas, destaca que se trata de una
-herramienta muy importante ya que permite visualizar que ocurre en el robot en
-cada momento en busca de errores.
+RViz también puede interactuar con la información de la biblioteca
+\textit{``tf"} para mostrar toda la información del sistema de coordenadas de
+los sensores desde diferentes perspectivas. Entre las ventajas, destaca que se
+trata de una herramienta muy importante ya que permite visualizar que ocurre en
+el robot en cada momento en busca de errores.
 
 %--------------------------------------
 \paragraph{RQt} \hspace{0pt}
@@ -286,10 +266,11 @@ Entre los principales plugins, destacan:
   grafo, como los nodos y las conexiones entre ellos, siendo de gran utilidad
   para la depuración de errores ya que son una forma rápida de ver que todo está
   el sistema está conectado correctamente.
-  \item \textbf{rqt\_reconfigure:} adaptación del paquete 'dynamic\_reconfigure'
-  que que permite modificar en tiempo real todos los parámetros de los nodos,
-  para realizar modificaciones rápidas al vuelo. La configuración de los
-  parámetros se puede exportar para utilizar en el futuro.
+  \item \textbf{rqt\_reconfigure:} adaptación del
+  paquete\textit{``dynamic\_reconfigure"} que que permite modificar en tiempo
+  real todos los parámetros de los nodos, para realizar modificaciones rápidas
+  al vuelo. La configuración de los parámetros se puede exportar para utilizar
+  en el futuro.
 \end{itemize}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
